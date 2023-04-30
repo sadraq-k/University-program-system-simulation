@@ -30,12 +30,13 @@ class date{
         durationMin = duM;
         durationHour = duH;  
             
-    }    
+    } 
+
 };
 
 
 class course{
-    friend void inputCourse(course&temp , fstream coursetemp);
+    friend void inputCourse(course&temp , string help);
     
      protected:
         string idCourse;
@@ -48,6 +49,12 @@ class course{
     private:
         //vector<int>studentList
         int* studentList{new int[capacityCourse]};
+
+    public:
+        void show(){
+            cout<<boolalpha;
+            cout<<idCourse<<endl<<name<<endl<<teachername<<endl<<videoprojector<<temprary<<endl<<capacityCourse<<endl;
+        }    
 
 
    
@@ -165,15 +172,10 @@ int main(){
         
             
     }
-
+cout<<endl;
 course AdvanceProgramming;
 inputCourse(AdvanceProgramming , "AP101");
-
-   /* fstream advprogramming;
-    advprogramming.open("proj.txt" , ios::in);
-    course advanceprogramming; 
-    inputCourse(advanceprogramming, advprogramming);*/
-
+AdvanceProgramming.show();
 
     return 0;
 }
