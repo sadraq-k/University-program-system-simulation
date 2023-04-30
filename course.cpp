@@ -35,7 +35,7 @@ class date{
 
 
 class course{
-   // friend void inputCourse(course&temp , fstream coursetemp);
+    friend void inputCourse(course&temp , fstream coursetemp);
     
      protected:
         string idCourse;
@@ -91,43 +91,68 @@ bool stringToBool(string temp){
     
 }    
 
-/*void inputCourse(course& temp , fstream coursetemp){
-    char auxiliary[80];    
+void inputCourse(course& temp ,string help){
+    char auxiliary[80];
+    char assist[80]; 
+
+    fstream coursetemp;   
     coursetemp.open("proj.txt" , ios::in);
     if(coursetemp.fail()){
-        cout<<"fail";
+        cout<<"fail\tthe file has a problem"<<endl;
     }
+    int j; 
+    for(j = 1; assist == help; j++ ){
+        coursetemp.getline(assist , 80);
+    }
+    coursetemp.close();
+    coursetemp.open("proj.txt" , ios::in);
 
     for(int i{1}; !coursetemp.eof(); i++){
-        coursetemp.getline(auxiliary , 81);
-        switch (i)
+        coursetemp.getline(auxiliary , 80);
+        if(i>=j-1 && i<j+5){
+       /* switch (i)
         {
-        case 1 :
+        case (j-1) :
             temp.idCourse = auxiliary;    
             break;
-        case 2:
+        case j:
             temp.name = auxiliary;
             break;    
-        case 3:
+        case (j+1):
             temp.teachername = auxiliary;
             break;
-        case 4:
+        case (j+2):
             temp.videoprojector = stringToBool(auxiliary);   
             break;
-        case 5:
+        case (j+3):
             temp.temprary = stringToBool(auxiliary);
             break;
-        case 6:
+        case (j+4):
             temp.capacityCourse = stringToInteger<int>(auxiliary);
             break;          
         default:
             ;
             break;
-        }
+        }*/
+            if(i == j-1)
+                temp.idCourse = auxiliary;    
+            if(i == j)
+                temp.name = auxiliary;
+            if(i == j+1)
+                temp.teachername = auxiliary;
+            if(i == j+2)
+                temp.videoprojector = stringToBool(auxiliary);   
+            if(i == j+3)
+                temp.temprary = stringToBool(auxiliary);  
+            if(i == j+4)
+                temp.capacityCourse = stringToInteger<int>(auxiliary);
+
+    }
+
     }
     coursetemp.close();    
     }
-    */
+    
 
 
 int main(){
@@ -140,6 +165,9 @@ int main(){
         
             
     }
+
+course AdvanceProgramming;
+inputCourse(AdvanceProgramming , "AP101");
 
    /* fstream advprogramming;
     advprogramming.open("proj.txt" , ios::in);
