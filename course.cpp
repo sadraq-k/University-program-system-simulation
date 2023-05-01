@@ -3,7 +3,9 @@
 #include<string>
 #include<vector>
 #include<array>
+#include <cstdlib>
 //#include<sstream>
+
 using namespace std;
 
 class date{
@@ -53,7 +55,7 @@ private:
 public:
     void show(){
         cout<<boolalpha;
-        cout<<idCourse<<endl<<name<<endl<<teachername<<endl<<videoprojector<<temprary<<endl<<capacityCourse<<endl;
+        cout<<idCourse<<endl<<name<<endl<<teachername<<endl<<videoprojector<<endl<<temprary<<endl<<capacityCourse<<endl;
     }
 
 
@@ -108,51 +110,37 @@ void inputCourse(course& temp ,string help){
         cout<<"fail\tthe file has a problem"<<endl;
     }
     int j;
-    for(j = 1; assist == help; j++ ){
+    for(j = 1; !coursetemp.eof(); j++ )
+    {
         coursetemp.getline(assist , 80);
+        if(assist == help)
+            break;
     }
     coursetemp.close();
     coursetemp.open("proj.txt" , ios::in);
 
-    for(int i{1}; !coursetemp.eof(); i++){
+    for(int i{1}; !coursetemp.eof(); i++)
+    {
         coursetemp.getline(auxiliary , 80);
-        if(i>=j-1 && i<j+5){
-            /* switch (i)
-             {
-             case (j-1) :
-                 temp.idCourse = auxiliary;
-                 break;
-             case j:
-                 temp.name = auxiliary;
-                 break;
-             case (j+1):
-                 temp.teachername = auxiliary;
-                 break;
-             case (j+2):
-                 temp.videoprojector = stringToBool(auxiliary);
-                 break;
-             case (j+3):
-                 temp.temprary = stringToBool(auxiliary);
-                 break;
-             case (j+4):
-                 temp.capacityCourse = stringToInteger<int>(auxiliary);
-                 break;
-             default:
-                 ;
-                 break;
-             }*/
-            if(i == j-1)
-                temp.idCourse = auxiliary;
+        if(i>=j-1 && i<=j+6)
+        {
+
             if(i == j)
-                temp.name = auxiliary;
+                temp.idCourse = auxiliary;
             if(i == j+1)
-                temp.teachername = auxiliary;
+                temp.name = auxiliary;
             if(i == j+2)
-                temp.videoprojector = stringToBool(auxiliary);
+                temp.teachername = auxiliary;
             if(i == j+3)
+                temp.videoprojector = stringToBool(auxiliary);
+            if(i == j+4)
                 temp.temprary = stringToBool(auxiliary);
-            //if(i == j+4)
-                //temp.capacityCourse = stringToInteger<int>(auxiliary);
+            if(i == j+5)
+            {
+                const char* x = auxiliary;
+                temp.capacityCourse = atoi(x);
+            }
+
 
         }
 
