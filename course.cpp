@@ -162,7 +162,7 @@ int main(){
     }
     cout<<endl;
     course AdvanceProgramming;
-    inputCourse(AdvanceProgramming , "AP101");
+    inputCourse(AdvanceProgramming , "MH101");
     AdvanceProgramming.show();
 
     return 0;

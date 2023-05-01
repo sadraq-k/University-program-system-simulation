@@ -7,5 +7,9 @@ True
 False
 4000
 
-
-*
+MH101
+math 2
+alii
+true
+true
+20
