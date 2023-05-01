@@ -6,6 +6,12 @@
 #define UNIVERSITY_PROGRAM_SYSTEM_SIMULATION_TOOLSPROJECT_H
 
 #endif //UNIVERSITY_PROGRAM_SYSTEM_SIMULATION_TOOLSPROJECT_H
+#include <iostream>
+#include <array>
+#include <string>
+
+using namespace std;
+
 class date{
     friend auto calcuteTime(date object);
 private:
@@ -40,7 +46,7 @@ bool stringToBool(string temp)
         check = true;
     else if(temp == "false" || temp == "False" || temp == "FALSE" )
         check = false;
-    return check
+    return check;
 }
 
 auto calcuteTime(date object)

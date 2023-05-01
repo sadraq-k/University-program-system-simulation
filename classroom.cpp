@@ -22,6 +22,12 @@ protected:
 
 public:
 
+    void show()
+    {
+        cout<<boolalpha;
+        cout<<idClass<<endl<<capacityClass<<endl<<videoprojector<<endl;
+    }
+
 };
 
 void inputClassroom(classroom& temp ,string help)
@@ -56,8 +62,7 @@ void inputClassroom(classroom& temp ,string help)
                 temp.capacityClass = atoi(auxiliary);
             if(i == j+2)
                 temp.videoprojector = stringToBool(auxiliary);
-            if(i == j+3)
-                temp.videoprojector = stringToBool(auxiliary);
+
 
            /* if(i == j+5)
             {
@@ -74,6 +79,10 @@ void inputClassroom(classroom& temp ,string help)
 
 int main()
 {
+    classroom c1;
 
+    inputClassroom(c1,"203");
+
+    c1.show();
 }
 
