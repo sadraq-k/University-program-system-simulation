@@ -53,7 +53,8 @@ auto calcuteTime(date object)
 {
 
     object.minEnd = object.minStart + object.durationMin;
-    if (object.minEnd > 59) {
+    if (object.minEnd > 59)
+    {
         object.minEnd -= 60;
         object.hourEnd = 1;
     }
