@@ -12,8 +12,9 @@
 //#include "functions.h"
 
 
-class classroom{ friend void check();
-    friend void inputClassroom(classroom& temp ,string help);
+class classroom{ 
+    friend void check();
+   // friend void inputClassroom(classroom& temp ,string help);
 protected:
     string idClass;
     int capacityClass;
@@ -30,8 +31,56 @@ public:
         cout<<idClass<<endl<<capacityClass<<endl<<videoprojector<<endl;
     }
 
+    void inputClassroom(string help)
+{
+    char auxiliary[80];
+    char assist[80];
+
+    fstream classtemp;
+    classtemp.open("proj.txt" , ios::in);
+    if(classtemp.fail()){
+        cout<<"fail\tthe file has a problem"<<endl;
+    }
+    int j;
+    for(j = 1; !classtemp.eof(); j++ )
+    {
+        classtemp.getline(assist , 80);
+        if(assist == help)
+            break;
+    }
+    classtemp.close();
+    classtemp.open("proj.txt" , ios::in);
+
+    for(int i{1}; !classtemp.eof(); i++)
+    {
+        classtemp.getline(auxiliary , 80);
+        if(i>=j-1 && i<=j+6)
+        {
+
+            if(i == j)
+                idClass = auxiliary;
+            if(i == j+1)
+                capacityClass = atoi(auxiliary);
+            if(i == j+2)
+                videoprojector = stringToBool(auxiliary);
+
+
+            /* if(i == j+5)
+             {
+                 const char* x = auxiliary;
+                 temp.capacityCourse = atoi(x);
+             }*/
+
+
+        }
+
+    }
+    classtemp.close();
+}
+
 };
 
+/*
 void inputClassroom(classroom& temp ,string help)
 {
     char auxiliary[80];
@@ -71,13 +120,13 @@ void inputClassroom(classroom& temp ,string help)
                  const char* x = auxiliary;
                  temp.capacityCourse = atoi(x);
              }*/
-
+/*
 
         }
 
     }
     classtemp.close();
-}
+}*/
 void check ()
 {
     int number;
@@ -88,7 +137,8 @@ void check ()
 
     classroom c1;
 
-    inputClassroom(c1,a);
+    //inputClassroom(c1,a);
+    c1.inputClassroom(a);
 
     c1.show();
 
