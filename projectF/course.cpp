@@ -3,57 +3,125 @@
 #include<string>
 #include<vector>
 #include<array>
-#include<sstream>
-using namespace std; 
+#include <cstdlib>
+//#include<sstream>
 
+using namespace std;
+//tabdil string be bool 
+bool stringToBool(string temp){
+    bool check{true};
+    if(temp == "true" || temp == "True" || temp == "TRUE")
+        check = true;
+    else if(temp == "false" || temp == "False" || temp == "FALSE" )
+        check = false;
+    return check;
+
+}
+//class date: braye neshan dadan tarikh va saat dars va kelas
 class date{
     friend auto calcuteTime(date object);
-    private:
-        int day; 
-        int month; 
-        int year; 
-        int hourStart;
-        int minStart; 
-        int hourEnd; 
-        int minEnd; 
-        int durationMin;
-        int durationHour;
-    public:
+private:
+    int day;
+    int month;
+    int year;
+    int hourStart;
+    int minStart;
+    int hourEnd;
+    int minEnd;
+    int durationMin;
+    int durationHour;
+public:
     date(int d = 1 , int m = 1 , int y = 1401 ,int hS = 0 , int mS = 0 , int duH = 0 , int duM = 0 ){
         day = d;
-        month = m; 
+        month = m;
         year = y;
-        hourStart = hS; 
+        hourStart = hS;
         minStart = mS;
-        hourEnd = 0; 
+        hourEnd = 0;
         minEnd = 0;
         durationMin = duM;
-        durationHour = duH;  
-            
-    }    
+        durationHour = duH;
+
+    }
+
 };
 
-
+//class course: etelaat dars
 class course{
-   // friend void inputCourse(course&temp , fstream coursetemp);
-    
-     protected:
-        string idCourse;
-        string name;
-        string teachername;
-        bool videoprojector;
-        bool temprary; 
-        int capacityCourse;
-        date courseTime; 
-    private:
-        //vector<int>studentList
-        int* studentList{new int[capacityCourse]};
+    //friend void inputCourse(course&temp , string help);
+
+protected:
+    string idCourse;
+    string name;
+    string teachername;
+    bool videoprojector;
+    bool temprary;
+    int capacityCourse;
+    date courseTime;
+private:
+    //vector<int>studentList
+    int* studentList{new int[capacityCourse]};
+
+public:
+    void show(){
+        cout<<boolalpha;
+        cout<<idCourse<<endl<<name<<endl<<teachername<<endl<<videoprojector<<endl<<temprary<<endl<<capacityCourse<<endl;
+    }
+
+    void inputCourse(string help){
+    char auxiliary[80];
+    char assist[80];
+
+    fstream coursetemp;
+    coursetemp.open("proj.txt" , ios::in);
+    if(coursetemp.fail()){
+        cout<<"fail\tthe file has a problem"<<endl;
+    }
+    int j;
+    for(j = 1; !coursetemp.eof(); j++ )
+    {
+        coursetemp.getline(assist , 80);
+        if(assist == help)
+            break;
+    }
+    coursetemp.close();
+    coursetemp.open("proj.txt" , ios::in);
+
+    for(int i{1}; !coursetemp.eof(); i++)
+    {
+        coursetemp.getline(auxiliary , 80);
+        if(i>=j-1 && i<=j+6)
+        {
+
+            if(i == j)
+                idCourse = auxiliary;
+            if(i == j+1)
+                name = auxiliary;
+            if(i == j+2)
+                teachername = auxiliary;
+            if(i == j+3)
+                videoprojector = stringToBool(auxiliary);
+            if(i == j+4)
+                temprary = stringToBool(auxiliary);
+            if(i == j+5)
+            {
+                const char* x = auxiliary;
+                capacityCourse = atoi(x);
+            }
 
 
-   
+        }
+
+    }
+    coursetemp.close();
+}
+
+
+
+
 };
 
-
+// baraye mohasebe saat payan dars va kelas 
 auto calcuteTime(date object){
 
     object.minEnd = object.minStart + object.durationMin;
@@ -71,63 +139,66 @@ auto calcuteTime(date object){
 }
 
 
-template <typename T>
+/*template <typename T>
 T stringToInteger(string str){
     T result;
     istringstream convert(str);
     if ( !(convert >> result) )
-       throw "Can not convert";
- 
-    return result;}
+        throw "Can not convert";
+
+    return result;}*/
 
 
-bool stringToBool(string temp){
-    bool check{true}; 
-    if(temp == "true" || temp == "True" || temp == "TRUE")
-        check = true; 
-    else if(temp == "false" || temp == "False" || temp == "FALSE" )
-        check = false; 
-    return check;         
-    
-}    
 
-/*void inputCourse(course& temp , fstream coursetemp){
-    char auxiliary[80];    
+
+/*void inputCourse(course& temp ,string help){
+    char auxiliary[80];
+    char assist[80];
+
+    fstream coursetemp;
     coursetemp.open("proj.txt" , ios::in);
     if(coursetemp.fail()){
-        cout<<"fail";
+        cout<<"fail\tthe file has a problem"<<endl;
     }
+    int j;
+    for(j = 1; !coursetemp.eof(); j++ )
+    {
+        coursetemp.getline(assist , 80);
+        if(assist == help)
+            break;
+    }
+    coursetemp.close();
+    coursetemp.open("proj.txt" , ios::in);
 
-    for(int i{1}; !coursetemp.eof(); i++){
-        coursetemp.getline(auxiliary , 81);
-        switch (i)
+    for(int i{1}; !coursetemp.eof(); i++)
+    {
+        coursetemp.getline(auxiliary , 80);
+        if(i>=j-1 && i<=j+6)
         {
-        case 1 :
-            temp.idCourse = auxiliary;    
-            break;
-        case 2:
-            temp.name = auxiliary;
-            break;    
-        case 3:
-            temp.teachername = auxiliary;
-            break;
-        case 4:
-            temp.videoprojector = stringToBool(auxiliary);   
-            break;
-        case 5:
-            temp.temprary = stringToBool(auxiliary);
-            break;
-        case 6:
-            temp.capacityCourse = stringToInteger<int>(auxiliary);
-            break;          
-        default:
-            ;
-            break;
+
+            if(i == j)
+                temp.idCourse = auxiliary;
+            if(i == j+1)
+                temp.name = auxiliary;
+            if(i == j+2)
+                temp.teachername = auxiliary;
+            if(i == j+3)
+                temp.videoprojector = stringToBool(auxiliary);
+            if(i == j+4)
+                temp.temprary = stringToBool(auxiliary);
+            if(i == j+5)
+            {
+                const char* x = auxiliary;
+                temp.capacityCourse = atoi(x);
+            }
+
+
         }
+
     }
-    coursetemp.close();    
-    }
-    */
+    coursetemp.close();
+}*/
+
 
 
 int main(){
@@ -137,15 +208,14 @@ int main(){
     array<int , 2>myarr{calcuteTime(temp)};
     for(int i=0 ; i<2; i++){
         cout<<myarr[i]<<":";
-        
-            
+
+
     }
-
-   /* fstream advprogramming;
-    advprogramming.open("proj.txt" , ios::in);
-    course advanceprogramming; 
-    inputCourse(advanceprogramming, advprogramming);*/
-
+    cout<<endl;
+    course AdvanceProgramming;
+    //inputCourse(AdvanceProgramming , "MH101");
+    AdvanceProgramming.inputCourse("MH101");
+    AdvanceProgramming.show();
 
     return 0;
 }
