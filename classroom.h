@@ -15,7 +15,7 @@
 class classroom{ 
     friend void check();
    // friend void inputClassroom(classroom& temp ,string help);
-protected:
+private:
     string idClass;
     int capacityClass;
     bool videoprojector;
@@ -23,6 +23,7 @@ protected:
     string idCourse;
 
 
+ 
 public:
 
     void show()
