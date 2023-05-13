@@ -21,9 +21,9 @@ bool stringToBool(string temp){
 class date{
     friend auto calcuteTime(date object);
 private:
-    int day;
+    /*int day;
     int month;
-    int year;
+    int year;*/
     int hourStart;
     int minStart;
     int hourEnd;
@@ -31,7 +31,7 @@ private:
     int durationMin;
     int durationHour;
 public:
-    date(int d = 1 , int m = 1 , int y = 1401 ,int hS = 0 , int mS = 0 , int duH = 0 , int duM = 0 ){
+    /*date(int d = 1 , int m = 1 , int y = 1401 ,int hS = 0 , int mS = 0 , int duH = 0 , int duM = 0 ){
         day = d;
         month = m;
         year = y;
@@ -42,6 +42,19 @@ public:
         durationMin = duM;
         durationHour = duH;
 
+    }*/
+
+    void set_HS(int a = 0){
+        hourStart = a;
+    }
+    void set_MS(int a = 0){
+        minStart = a;
+    }
+    void set_DH(int a = 0){
+        durationHour = a;
+    }
+    void set_DM(int a = 0){
+        durationMin = a;
     }
 
 };
@@ -55,8 +68,8 @@ private:
     string idClass;
     int capacityClass;
     bool videoprojector;
-    date dateClass;
-    string idCourse;
+    //date dateClass;
+    //string idCourse;
 
 
 public:
@@ -128,12 +141,13 @@ private:
     bool videoprojector;
     bool temprary;
     int capacityCourse;
-    date courseTime;
+    
     //vector<int>studentList
     //int* studentList{new int[capacityCourse]};
 
 public:
     classroom location; 
+    date courseTime;
     void show(){
         cout<<boolalpha;
         cout<<idCourse<<endl<<name<<endl<<teachername<<endl<<videoprojector<<endl<<temprary<<endl<<capacityCourse<<endl;
@@ -178,6 +192,23 @@ public:
             {
                 const char* x = auxiliary;
                 capacityCourse = atoi(x);
+            }
+            
+            if(i == j+6){
+                const char* x = auxiliary;
+                courseTime.set_HS(atoi(x));
+            }
+            if(i == j+7){
+                const char* x = auxiliary;
+                courseTime.set_MS(atoi(x));
+            }
+            if(i == j+8){
+                const char* x = auxiliary;
+                courseTime.set_DH(atoi(x)); 
+            }
+            if(i == j+9){
+                const char* x = auxiliary;
+                courseTime.set_DM(atoi(x));
             }
 
 
@@ -280,6 +311,7 @@ void specify(/*course temp[4]*/){
     course physics;
     bool check;
     cout<<"you want to determine the location of each course yourself (enter 1)| the program specifies the location of each course (enter 0) "<<endl; 
+    cin>>check; 
     if(check){
         string questionForCourse;
         string questionForClassroom; 
@@ -302,13 +334,31 @@ void specify(/*course temp[4]*/){
             (Math.location).inputClassroom(questionForClassroom);
             //(temp[1].location).inputClassroom(questionForClassroom);    
         }
+
+         if(questionForCourse == "Physics"){
+            Math.inputCourse("PH101");
+            //temp[2].inputCourse("PH101");
+            cout<<"enter the desired classroom for the Math course : ";
+            getline(cin , questionForClassroom);
+            (Math.location).inputClassroom(questionForClassroom);
+            //(temp[2].location).inputClassroom(questionForClassroom);    
+        }
+
+         if(questionForCourse == "Workshop"){
+            Math.inputCourse("WH101");
+            //temp[3].inputCourse("HH101");
+            cout<<"enter the desired classroom for the Math course : ";
+            getline(cin , questionForClassroom);
+            (Math.location).inputClassroom(questionForClassroom);
+            //(temp[3].location).inputClassroom(questionForClassroom);    
+        }
     }
 
 }
 int main(){
     cout<<"run program :"<<endl;
 
-    date temp(8,2,1401,8,30,1,30);
+   /* date temp(8,2,1401,8,30,1,30);
     array<int , 2>myarr{calcuteTime(temp)};
     for(int i=0 ; i<2; i++){
         cout<<myarr[i]<<":";
@@ -319,8 +369,8 @@ int main(){
     /*course advp; 
     course math; 
     course  physics; 
-    course history; 
-    course courses[4] = {advp , math , physics , history};
+    course workshop; 
+    course courses[4] = {advp , math , physics , workshop};
     specify(courses);*/
 
 
@@ -330,7 +380,7 @@ int main(){
     //inputCourse(AdvanceProgramming , "MH101");
     AdvanceProgramming.inputCourse("AP101");
     AdvanceProgramming.show();
-    
+
 
    /* bool check;
     cout<<"you want to determine the location of each course yourself (enter 1)| the program specifies the location of each course (enter 0) "<<endl; 
