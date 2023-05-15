@@ -44,7 +44,8 @@ public:
 
     }*/
 
-    void set_HS(int a = 0){
+    void set_HS(int a = 0)
+    {
         hourStart = a;
     }
     void set_MS(int a = 0){
