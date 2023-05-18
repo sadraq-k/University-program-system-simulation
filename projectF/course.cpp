@@ -59,6 +59,25 @@ public:
 
 };
 
+// baraye mohasebe saat payan dars kelas
+auto calcuteTime(date object){
+
+    object.minEnd = object.minStart + object.durationMin;
+    if(object.minEnd > 59){
+        object.minEnd -=60;
+        object.hourEnd =1;
+    }
+
+    object.hourEnd += object.hourStart + object.durationHour;
+    if(object.hourEnd>23)
+        object.minEnd -=24;
+
+    array<int , 2> timeEnd = {object.hourEnd , object.minEnd};
+    return timeEnd;
+}
+
+
+
 
 //class classroom : etalaat kelas
 class classroom{ 
@@ -74,14 +93,12 @@ private:
 
 public:
 
-    void show()
-    {
+    void show(){
         cout<<boolalpha;
         cout<<idClass<<endl<<capacityClass<<endl<<videoprojector<<endl;
     }
 
-    void inputClassroom(string help)
-{
+    void inputClassroom(string help){
     char auxiliary[80];
     char assist[80];
 
@@ -91,8 +108,7 @@ public:
         cout<<"fail\tthe file has a problem"<<endl;
     }
     int j;
-    for(j = 1; !classtemp.eof(); j++ )
-    {
+    for(j = 1; !classtemp.eof(); j++ ){
         classtemp.getline(assist , 80);
         if(assist == help)
             break;
@@ -100,11 +116,9 @@ public:
     classtemp.close();
     classtemp.open("proj.txt" , ios::in);
 
-    for(int i{1}; !classtemp.eof(); i++)
-    {
+    for(int i{1}; !classtemp.eof(); i++){
         classtemp.getline(auxiliary , 80);
-        if(i>=j-1 && i<=j+6)
-        {
+        if(i>=j-1 && i<=j+6){
 
             if(i == j)
                 idClass = auxiliary;
@@ -172,11 +186,9 @@ public:
     coursetemp.close();
     coursetemp.open("proj.txt" , ios::in);
 
-    for(int i{1}; !coursetemp.eof(); i++)
-    {
+    for(int i{1}; !coursetemp.eof(); i++){
         coursetemp.getline(auxiliary , 80);
-        if(i>=j-1 && i<=j+6)
-        {
+        if(i>=j-1 && i<=j+6){
 
             if(i == j)
                 idCourse = auxiliary;
@@ -188,8 +200,7 @@ public:
                 videoprojector = stringToBool(auxiliary);
             if(i == j+4)
                 temprary = stringToBool(auxiliary);
-            if(i == j+5)
-            {
+            if(i == j+5){
                 const char* x = auxiliary;
                 capacityCourse = atoi(x);
             }
@@ -222,28 +233,6 @@ public:
 
 
 
-
-
-
-
-// baraye mohasebe saat payan dars kelas
-auto calcuteTime(date object){
-
-    object.minEnd = object.minStart + object.durationMin;
-    if(object.minEnd > 59){
-        object.minEnd -=60;
-        object.hourEnd =1;
-    }
-
-    object.hourEnd += object.hourStart + object.durationHour;
-    if(object.hourEnd>23)
-        object.minEnd -=24;
-
-    array<int , 2> timeEnd = {object.hourEnd , object.minEnd};
-    return timeEnd;
-}
-
-
 /*template <typename T>
 T stringToInteger(string str){
     T result;
@@ -256,59 +245,12 @@ T stringToInteger(string str){
 
 
 
-/*void inputCourse(course& temp ,string help){
-    char auxiliary[80];
-    char assist[80];
-
-    fstream coursetemp;
-    coursetemp.open("proj.txt" , ios::in);
-    if(coursetemp.fail()){
-        cout<<"fail\tthe file has a problem"<<endl;
-    }
-    int j;
-    for(j = 1; !coursetemp.eof(); j++ )
-    {
-        coursetemp.getline(assist , 80);
-        if(assist == help)
-            break;
-    }
-    coursetemp.close();
-    coursetemp.open("proj.txt" , ios::in);
-
-    for(int i{1}; !coursetemp.eof(); i++)
-    {
-        coursetemp.getline(auxiliary , 80);
-        if(i>=j-1 && i<=j+6)
-        {
-
-            if(i == j)
-                temp.idCourse = auxiliary;
-            if(i == j+1)
-                temp.name = auxiliary;
-            if(i == j+2)
-                temp.teachername = auxiliary;
-            if(i == j+3)
-                temp.videoprojector = stringToBool(auxiliary);
-            if(i == j+4)
-                temp.temprary = stringToBool(auxiliary);
-            if(i == j+5)
-            {
-                const char* x = auxiliary;
-                temp.capacityCourse = atoi(x);
-            }
-
-
-        }
-
-    }
-    coursetemp.close();
-}*/
-
 //hanooz kamel nashode vali baraye moshakhas kardan mahal ya hamoon kelase
-void specify(/*course temp[4]*/){
-    course AdvanceProgramming;
+void specify(course temp[4]){
+   /* course AdvanceProgramming;
     course Math;
     course physics;
+    course workshop*/
     bool check;
     cout<<"you want to determine the location of each course yourself (enter 1)| the program specifies the location of each course (enter 0) "<<endl; 
     cin>>check; 
@@ -318,39 +260,39 @@ void specify(/*course temp[4]*/){
         cout<<"to determine the classroom , enter the desired course : ";
         getline(cin , questionForCourse);
         if(questionForCourse == "Advance Programming"){
-            AdvanceProgramming.inputCourse("AP101");
-            //temp[0].inputCourse("AP101");
+            //AdvanceProgramming.inputCourse("AP101");
+            temp[0].inputCourse("AP101");
             cout<<"enter the desired classroom for the Advance Programming course : ";
             getline(cin , questionForClassroom);
-            (AdvanceProgramming.location).inputClassroom(questionForClassroom);
-            //(temp[0].location).inputClassroom(questionForClassroom);
+            //(AdvanceProgramming.location).inputClassroom(questionForClassroom);
+            (temp[0].location).inputClassroom(questionForClassroom);
         }   
 
         if(questionForCourse == "Math"){
-            Math.inputCourse("MH101");
-            //temp[1].inputCourse("MH101");
+           // Math.inputCourse("MH101");
+            temp[1].inputCourse("MH101");
             cout<<"enter the desired classroom for the Math course : ";
             getline(cin , questionForClassroom);
-            (Math.location).inputClassroom(questionForClassroom);
-            //(temp[1].location).inputClassroom(questionForClassroom);    
+            //(Math.location).inputClassroom(questionForClassroom);
+            (temp[1].location).inputClassroom(questionForClassroom);    
         }
 
          if(questionForCourse == "Physics"){
-            Math.inputCourse("PH101");
-            //temp[2].inputCourse("PH101");
+            //Physics.inputCourse("PH101");
+            temp[2].inputCourse("PH101");
             cout<<"enter the desired classroom for the Math course : ";
             getline(cin , questionForClassroom);
-            (Math.location).inputClassroom(questionForClassroom);
-            //(temp[2].location).inputClassroom(questionForClassroom);    
+            //(Physics.location).inputClassroom(questionForClassroom);
+            (temp[2].location).inputClassroom(questionForClassroom);    
         }
 
          if(questionForCourse == "Workshop"){
-            Math.inputCourse("WH101");
-            //temp[3].inputCourse("HH101");
+            //workshop.inputCourse("WH101");
+            temp[3].inputCourse("HH101");
             cout<<"enter the desired classroom for the Math course : ";
             getline(cin , questionForClassroom);
-            (Math.location).inputClassroom(questionForClassroom);
-            //(temp[3].location).inputClassroom(questionForClassroom);    
+            //(workshop.location).inputClassroom(questionForClassroom);
+            (temp[3].location).inputClassroom(questionForClassroom);    
         }
     }
 
@@ -366,6 +308,8 @@ int main(){
 
     }
     cout<<endl;
+
+
     /*course advp; 
     course math; 
     course  physics; 
@@ -375,6 +319,16 @@ int main(){
 
 
 
+    /*course math;
+    math.courseTime.set_DH(1);
+    math.courseTime.set_DM(45);
+    math.courseTime.set_HS(16);
+    math.courseTime.set_MS(00);
+    array<int , 2>myarr = calcuteTime(math.courseTime);
+    for(int i =0; i<2; i++)
+        cout<<myarr[i]<<'\t';*/
+
+    cout<<endl;
     course AdvanceProgramming;
     classroom a101;
     //inputCourse(AdvanceProgramming , "MH101");
@@ -382,18 +336,7 @@ int main(){
     AdvanceProgramming.show();
 
 
-   /* bool check;
-    cout<<"you want to determine the location of each course yourself (enter 1)| the program specifies the location of each course (enter 0) "<<endl; 
-    if(check){
-    string questionForcourse;
-    string qusetionForclassRoom; 
-    cout<<"enter the desired course : ";
-    getline(cin , questionForcourse);
-    cout<<"enter the desired course : ";
-    getline(cin , questionForclassRoom);
-    if(questionForcourse == "Advance Programming ")
-        specify(AdvanceProgramming , a101);*/
-    
+   return 0;
     
     }
 
