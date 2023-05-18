@@ -18,7 +18,7 @@ int main()
 {
     classroom c1;
 
-    inputClassroom(c1,"203");
+    c1.inputClassroom("203");
 
     c1.show();
 

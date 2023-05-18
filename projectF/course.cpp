@@ -6,6 +6,8 @@
 #include <cstdlib>
 //#include<sstream>
 
+class course;
+
 using namespace std;
 //tabdil string be bool 
 bool stringToBool(string temp){
@@ -31,6 +33,7 @@ private:
     int durationMin;
     int durationHour;
 public:
+    double st,et;
     /*date(int d = 1 , int m = 1 , int y = 1401 ,int hS = 0 , int mS = 0 , int duH = 0 , int duM = 0 ){
         day = d;
         month = m;
@@ -48,23 +51,48 @@ public:
     {
         hourStart = a;
     }
-    void set_MS(int a = 0){
+    void set_MS(int a = 0)
+    {
         minStart = a;
     }
-    void set_DH(int a = 0){
+    void set_DH(int a = 0)
+    {
         durationHour = a;
     }
-    void set_DM(int a = 0){
+    void set_DM(int a = 0)
+    {
         durationMin = a;
     }
 
+   void calcuteTime()
+    {
+
+
+        minEnd = minStart + durationMin;
+        if(minEnd > 59)
+        {
+            minEnd -=60;
+            hourEnd =1;
+        }
+
+        hourEnd += hourStart + durationHour;
+        if(hourEnd>23)
+            minEnd -=24;
+
+
+        st=hourStart+(0.01*minStart);
+        et=hourEnd+(0.01*minEnd);
+    }
 };
 
 // baraye mohasebe saat payan dars kelas
-auto calcuteTime(date object){
+/*
+auto calcuteTime(date object)
+{
 
     object.minEnd = object.minStart + object.durationMin;
-    if(object.minEnd > 59){
+    if(object.minEnd > 59)
+    {
         object.minEnd -=60;
         object.hourEnd =1;
     }
@@ -76,12 +104,13 @@ auto calcuteTime(date object){
     array<int , 2> timeEnd = {object.hourEnd , object.minEnd};
     return timeEnd;
 }
-
+*/
 
 
 
 //class classroom : etalaat kelas
-class classroom{ 
+class classroom{
+    friend void mothercheck(course temp[4]);
    // friend void check();
    // friend void inputClassroom(classroom& temp ,string help);
 private:
@@ -93,6 +122,7 @@ private:
 
 
 public:
+
 
     void show(){
         cout<<boolalpha;
@@ -148,6 +178,7 @@ public:
 
 //class course: etelaat dars
 class course{
+    friend void mothercheck(course temp[4]);
     //friend void inputCourse(course&temp , string help);
 private:
     string idCourse;
@@ -233,7 +264,6 @@ public:
 };
 
 
-
 /*template <typename T>
 T stringToInteger(string str){
     T result;
@@ -247,7 +277,8 @@ T stringToInteger(string str){
 
 
 //hanooz kamel nashode vali baraye moshakhas kardan mahal ya hamoon kelase
-void specify(course temp[4]){
+void specify(course temp[4])
+{
    /* course AdvanceProgramming;
     course Math;
     course physics;
@@ -260,7 +291,8 @@ void specify(course temp[4]){
         string questionForClassroom; 
         cout<<"to determine the classroom , enter the desired course : ";
         getline(cin , questionForCourse);
-        if(questionForCourse == "Advance Programming"){
+        if(questionForCourse == "Advance Programming")
+        {
             //AdvanceProgramming.inputCourse("AP101");
             temp[0].inputCourse("AP101");
             cout<<"enter the desired classroom for the Advance Programming course : ";
@@ -269,7 +301,8 @@ void specify(course temp[4]){
             (temp[0].location).inputClassroom(questionForClassroom);
         }   
 
-        if(questionForCourse == "Math"){
+        if(questionForCourse == "Math")
+        {
            // Math.inputCourse("MH101");
             temp[1].inputCourse("MH101");
             cout<<"enter the desired classroom for the Math course : ";
@@ -278,7 +311,8 @@ void specify(course temp[4]){
             (temp[1].location).inputClassroom(questionForClassroom);    
         }
 
-         if(questionForCourse == "Physics"){
+         if(questionForCourse == "Physics")
+         {
             //Physics.inputCourse("PH101");
             temp[2].inputCourse("PH101");
             cout<<"enter the desired classroom for the Math course : ";
@@ -287,7 +321,8 @@ void specify(course temp[4]){
             (temp[2].location).inputClassroom(questionForClassroom);    
         }
 
-         if(questionForCourse == "Workshop"){
+         if(questionForCourse == "Workshop")
+         {
             //workshop.inputCourse("WH101");
             temp[3].inputCourse("HH101");
             cout<<"enter the desired classroom for the Math course : ";
@@ -298,7 +333,29 @@ void specify(course temp[4]){
     }
 
 }
-int main(){
+
+
+void mothercheck(course temp[4])
+{
+    int A[4];
+    for (int i = 0; i < 3; ++i)
+    {
+        if (temp[i].capacityCourse==temp[i].location.capacityClass)
+        {
+
+            A[0]=1;  //A[0] for capaciyt
+        }
+        if (temp[i].videoprojector==temp[i].location.videoprojector)
+        {
+            A[1]=1;   //A[1] for videopro
+        }
+       // if (temp[i].courseTime.)
+    }
+}
+
+
+int main()
+{
     cout<<"run program :"<<endl;
 
    /* date temp(8,2,1401,8,30,1,30);
@@ -309,17 +366,17 @@ int main(){
 
     }
     cout<<endl;
-    
-    /*course advp; 
+    */
+    course advp;
     course math; 
     course  physics; 
     course workshop; 
     course courses[4] = {advp , math , physics , workshop};
-    specify(courses);*/
+    specify(courses);
 
 
-
-    /*course math;
+/*
+    course math;
     math.courseTime.set_DH(1);
     math.courseTime.set_DM(45);
     math.courseTime.set_HS(16);
