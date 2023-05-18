@@ -308,8 +308,7 @@ int main(){
 
     }
     cout<<endl;
-
-
+    
     /*course advp; 
     course math; 
     course  physics; 
@@ -328,7 +327,6 @@ int main(){
     for(int i =0; i<2; i++)
         cout<<myarr[i]<<'\t';*/
 
-    cout<<endl;
     course AdvanceProgramming;
     classroom a101;
     //inputCourse(AdvanceProgramming , "MH101");
