@@ -4,6 +4,7 @@
 #include<vector>
 #include<array>
 #include <cstdlib>
+#include<algorithm>
 //#include<sstream>
 
 class course;
@@ -22,6 +23,8 @@ bool stringToBool(string temp){
 //class date: braye neshan dadan tarikh va saat dars va kelas
 class date{
     friend auto calcuteTime(date object);
+    friend void sortDay(course temp[4]);
+
 private:
     /*int day;
     int month;
@@ -32,6 +35,7 @@ private:
     int minEnd;
     int durationMin;
     int durationHour;
+    string day;
 public:
     double st,et;
     /*date(int d = 1 , int m = 1 , int y = 1401 ,int hS = 0 , int mS = 0 , int duH = 0 , int duM = 0 ){
@@ -62,6 +66,9 @@ public:
     void set_DM(int a = 0)
     {
         durationMin = a;
+    }
+    void set_Day(string days){
+        day = days;
     }
 
    void calcuteTime()
@@ -178,6 +185,7 @@ public:
 
 //class course: etelaat dars
 class course{
+    friend void sortDay(course temp[4]);
     friend void mothercheck(course temp[4]);
     //friend void inputCourse(course&temp , string help);
 private:
@@ -252,6 +260,9 @@ public:
             if(i == j+9){
                 const char* x = auxiliary;
                 courseTime.set_DM(atoi(x));
+            }
+            if(i == j+10){
+                courseTime.set_Day(auxiliary);
             }
 
 
@@ -333,23 +344,85 @@ void specify(course temp[4])
     }
 
 }
+course saturday[4];
+course sunday[4];
+course monday[4];
+course tuesday[4];
+course wednesday[4];
+course thurday[4];
+course friday[4];
+
+void sortDay(course temp[4]){
+    int j{0};int z{0};int w{0};int k{0};int y{0};int m{0};int n{0};
+    for(int i =0; i<4; i++){
+        if(temp[i].courseTime.day == "saturday"){
+          //  for(int j=0; j<4; j++)
+             saturday[j] = temp[i];
+             j++; }
+        
+        if(temp[i].courseTime.day == "sunday"){
+            //for(int j=0; j<4; j++)
+                 sunday[z] = temp[i];
+                 z++;} 
+
+        if(temp[i].courseTime.day == "monday"){
+           // for(int j=0; j<4; j++)
+                 monday[w] = temp[i];
+                 w++;}
+
+        if(temp[i].courseTime.day == "tuesday"){
+            //for(int j=0; j<4; j++)
+                 tuesday[k] = temp[i];
+                 k++;}
+
+        if(temp[i].courseTime.day == "wednesday"){
+           // for(int j=0; j<4; j++)
+                 wednesday[y] = temp[i];
+                 y++;} 
+
+        if(temp[i].courseTime.day == "thurday"){
+           // for(int j=0; j<4; j++)
+                 thurday[m] = temp[i];
+                 m++;}
+
+        if(temp[i].courseTime.day == "friday"){
+           // for(int j=0; j<4; j++)
+                 friday[n] = temp[i];
+                 n++;}                                    
+    }
+}
+
+
+//template <typename T>
+double great(double a , double b){
+    return a>b?a:b;
+}
 
 
 void mothercheck(course temp[4])
 {
     int A[4];
-    for (int i = 0; i < 3; ++i)
+    for (int i = 0; i < 4; ++i)
     {
         if (temp[i].capacityCourse==temp[i].location.capacityClass)
         {
 
-            A[0]=1;  //A[0] for capaciyt
+            A[0]=1;  //A[0] for capacity
         }
         if (temp[i].videoprojector==temp[i].location.videoprojector)
         {
             A[1]=1;   //A[1] for videopro
         }
-       // if (temp[i].courseTime.)
+       int j{0};
+       for(int j=0;j<4;j++)
+       {
+            if( (temp[i].location.idClass == saturday[j].location.idClass) &&  ( ( (temp[i].courseTime.st>saturday[j].courseTime.st)&&(temp[i].courseTime.et>saturday[j].courseTime.et)&&(temp[i].courseTime.st>saturday[j].courseTime.et) ) ||
+             ( (temp[i].courseTime.st < saturday[j].courseTime.st)&&(temp[i].courseTime.et < saturday[j].courseTime.et)&&(temp[i].courseTime.et < saturday[j].courseTime.st) )  ) )
+            {
+                
+
+            }
+        }
     }
 }
 
