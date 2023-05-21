@@ -416,8 +416,8 @@ void mothercheck(course temp[4])
        int j{0};
        for(int j=0;j<4;j++)
        {
-            if( (temp[i].location.idClass == saturday[j].location.idClass) &&  ( ( (temp[i].courseTime.st>saturday[j].courseTime.st)&&(temp[i].courseTime.et>saturday[j].courseTime.et)&&(temp[i].courseTime.st>saturday[j].courseTime.et) ) ||
-             ( (temp[i].courseTime.st < saturday[j].courseTime.st)&&(temp[i].courseTime.et < saturday[j].courseTime.et)&&(temp[i].courseTime.et < saturday[j].courseTime.st) )  ) )
+            if( (temp[i].location.idClass == saturday[j].location.idClass) &&  ( !( (temp[i].courseTime.st>saturday[j].courseTime.st)&&(temp[i].courseTime.et>saturday[j].courseTime.et)&&(temp[i].courseTime.st>saturday[j].courseTime.et) ) &&
+             !( (temp[i].courseTime.st < saturday[j].courseTime.st)&&(temp[i].courseTime.et < saturday[j].courseTime.et)&&(temp[i].courseTime.et < saturday[j].courseTime.st) )  ) )
             {
                 
 
