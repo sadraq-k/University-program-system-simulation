@@ -185,16 +185,18 @@ public:
 
 //class course: etelaat dars
 class course{
+    friend course great(course a , course b);
     friend void sortDay(course temp[4]);
     friend void mothercheck(course temp[4]);
+
     //friend void inputCourse(course&temp , string help);
 private:
     string idCourse;
     string name;
     string teachername;
-    bool videoprojector;
+    bool videoprojector[2];
     bool temprary;
-    int capacityCourse;
+    int capacityCourse[2];
     
     //vector<int>studentList
     //int* studentList{new int[capacityCourse]};
@@ -237,12 +239,12 @@ public:
             if(i == j+2)
                 teachername = auxiliary;
             if(i == j+3)
-                videoprojector = stringToBool(auxiliary);
+                videoprojector[0] = stringToBool(auxiliary);
             if(i == j+4)
                 temprary = stringToBool(auxiliary);
             if(i == j+5){
                 const char* x = auxiliary;
-                capacityCourse = atoi(x);
+                capacityCourse[0] = atoi(x);
             }
             
             if(i == j+6){
@@ -344,88 +346,144 @@ void specify(course temp[4])
     }
 
 }
-course saturday[4];
-course sunday[4];
-course monday[4];
-course tuesday[4];
-course wednesday[4];
-course thurday[4];
-course friday[4];
 
-void sortDay(course temp[4]){
+course week[7][4];
+
+void sortDay(course temp[4])
+{
+    course saturday[4];
+    course sunday[4];
+    course monday[4];
+    course tuesday[4];
+    course wednesday[4];
+    course thurday[4];
+    course friday[4];
     int j{0};int z{0};int w{0};int k{0};int y{0};int m{0};int n{0};
     for(int i =0; i<4; i++){
-        if(temp[i].courseTime.day == "saturday"){
+        if(temp[i].courseTime.day == "saturday")
+        {
           //  for(int j=0; j<4; j++)
              saturday[j] = temp[i];
-             j++; }
-        
-        if(temp[i].courseTime.day == "sunday"){
+             j++;
+        }
+        week[0][4]=saturday[4];
+        if(temp[i].courseTime.day == "sunday")
+        {
             //for(int j=0; j<4; j++)
                  sunday[z] = temp[i];
-                 z++;} 
-
-        if(temp[i].courseTime.day == "monday"){
+                 z++;
+        }
+        week[1][4]= sunday[4];
+        if(temp[i].courseTime.day == "monday")
+        {
            // for(int j=0; j<4; j++)
                  monday[w] = temp[i];
-                 w++;}
-
-        if(temp[i].courseTime.day == "tuesday"){
+                 w++;
+        }
+        week[2][4]=monday[4];
+        if(temp[i].courseTime.day == "tuesday")
+        {
             //for(int j=0; j<4; j++)
                  tuesday[k] = temp[i];
-                 k++;}
-
-        if(temp[i].courseTime.day == "wednesday"){
+                 k++;
+        }
+        week[3][4]=tuesday[4];
+        if(temp[i].courseTime.day == "wednesday")
+        {
            // for(int j=0; j<4; j++)
                  wednesday[y] = temp[i];
-                 y++;} 
-
-        if(temp[i].courseTime.day == "thurday"){
+                 y++;
+        }
+        week[4][4]=wednesday[4];
+        if(temp[i].courseTime.day == "thurday")
+        {
            // for(int j=0; j<4; j++)
                  thurday[m] = temp[i];
-                 m++;}
-
-        if(temp[i].courseTime.day == "friday"){
+                 m++;
+        }
+        week[5][4]=thurday[4];
+        if(temp[i].courseTime.day == "friday")
+        {
            // for(int j=0; j<4; j++)
                  friday[n] = temp[i];
-                 n++;}                                    
+                 n++;
+        }
+        week[6][4]=friday[4];
     }
 }
 
 
 //template <typename T>
-double great(double a , double b){
-    return a>b?a:b;
+
+  course min(course a , course b)
+{
+
+    if(a.courseTime.st<b.courseTime.st)
+        return a;
+    else
+        return b;
 }
 
+  course max(course a , course b)
+{
+
+    if(a.courseTime.st>b.courseTime.st)
+        return a;
+    else
+        return b;
+}
+
+course stack[5];
 
 void mothercheck(course temp[4])
 {
     int A[4];
     for (int i = 0; i < 4; ++i)
     {
-        if (temp[i].capacityCourse==temp[i].location.capacityClass)
+        if (temp[i].capacityCourse[0]>temp[i].location.capacityClass)
         {
+            temp[i].capacityCourse[1]=1;
 
-            A[0]=1;  //A[0] for capacity
         }
-        if (temp[i].videoprojector==temp[i].location.videoprojector)
+        if (temp[i].videoprojector[0]==temp[i].location.videoprojector)
         {
-            A[1]=1;   //A[1] for videopro
+            temp[i].videoprojector[1]=1;
         }
        int j{0};
-       for(int j=0;j<4;j++)
-       {
-            if( (temp[i].location.idClass == saturday[j].location.idClass) &&  ( !( (temp[i].courseTime.st>saturday[j].courseTime.st)&&(temp[i].courseTime.et>saturday[j].courseTime.et)&&(temp[i].courseTime.st>saturday[j].courseTime.et) ) &&
-             !( (temp[i].courseTime.st < saturday[j].courseTime.st)&&(temp[i].courseTime.et < saturday[j].courseTime.et)&&(temp[i].courseTime.et < saturday[j].courseTime.st) )  ) )
-            {
-                
 
+        for(int j=0 ; j < 7 ; j++)
+        {
+            for (int k = 0; k < 4 ; ++k)
+            {
+                int c = 0;
+                if ((temp[i].location.idClass == week[j][k].location.idClass))
+                {
+                    course A = min(temp[i], week[j][k]);
+                    course B = max(temp[i], week[j][k]);
+                    if (A.courseTime.st < B.courseTime.st && A.courseTime.et < B.courseTime.et &&
+                        A.courseTime.et < B.courseTime.st)
+                    {
+                        if (A.courseTime.st == temp[i].courseTime.st)
+                        {
+                            stack[c] = temp[i];
+                            c++;
+                        }
+                        if (B.courseTime.st == temp[i].courseTime.st)
+                        {
+                            stack[c] = temp[i];
+                            c++;
+                        }
+
+                    }
+
+
+                }
             }
         }
     }
 }
-
+/*( !( (temp[i].courseTime.st>saturday[j].courseTime.st)&&(temp[i].courseTime.et>saturday[j].courseTime.et)&&(temp[i].courseTime.st>saturday[j].courseTime.et) ) ||
+!( (temp[i].courseTime.st < saturday[j].courseTime.st)&&(temp[i].courseTime.et < saturday[j].courseTime.et)&&(temp[i].courseTime.et < saturday[j].courseTime.st) )  )*/
 
 int main()
 {
