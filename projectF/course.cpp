@@ -198,15 +198,19 @@ private:
     bool temprary;
     int capacityCourse[2];
     
-    //vector<int>studentList
-    //int* studentList{new int[capacityCourse]};
+    //vector<int>studentList;
+    int* studentList{new int[capacityCourse[0]]};
 
 public:
     classroom location; 
     date courseTime;
     void show(){
         cout<<boolalpha;
-        cout<<idCourse<<endl<<name<<endl<<teachername<<endl<<videoprojector<<endl<<temprary<<endl<<capacityCourse<<endl;
+        cout<<idCourse<<endl<<name<<endl<<teachername<<endl<<videoprojector[0]<<endl<<temprary<<endl<<capacityCourse[0]<<endl;
+        cout<<"student list : ";
+        for(int i=0;i<capacityCourse[0];i++){
+            cout<<studentList[i]<<" ";
+        }
     }
 
     void inputCourse(string help){
@@ -230,7 +234,7 @@ public:
 
     for(int i{1}; !coursetemp.eof(); i++){
         coursetemp.getline(auxiliary , 80);
-        if(i>=j-1 && i<=j+6){
+        if(i>=j-1 && i<=j+11){
 
             if(i == j)
                 idCourse = auxiliary;
@@ -266,6 +270,17 @@ public:
             if(i == j+10){
                 courseTime.set_Day(auxiliary);
             }
+            string read; 
+            if(i == j+11){
+
+                for(int k=0; k<capacityCourse[0] ;k++){
+                coursetemp>>read;
+                const char* helping = read.c_str();
+                studentList[k] = (atoi(helping));
+                coursetemp.ignore(1,' ');
+                }
+
+            }
 
 
         }
@@ -297,19 +312,22 @@ void specify(course temp[4])
     course physics;
     course workshop*/
     bool check;
-    cout<<"you want to determine the location of each course yourself (enter 1)| the program specifies the location of each course (enter 0) "<<endl; 
+    cout<<"you want to determine the location of each course yourself (enter 1) | the program specifies the location of each course (enter 0) "<<endl; 
     cin>>check; 
     if(check){
         string questionForCourse;
         string questionForClassroom; 
         cout<<"to determine the classroom , enter the desired course : ";
-        getline(cin , questionForCourse);
-        if(questionForCourse == "Advance Programming")
+        //getline(cin , questionForCourse);
+        cin>>questionForCourse;
+
+        if(questionForCourse == "AdvanceProgramming")
         {
             //AdvanceProgramming.inputCourse("AP101");
             temp[0].inputCourse("AP101");
             cout<<"enter the desired classroom for the Advance Programming course : ";
-            getline(cin , questionForClassroom);
+            //getline(cin , questionForClassroom);
+            cin>>questionForClassroom;
             //(AdvanceProgramming.location).inputClassroom(questionForClassroom);
             (temp[0].location).inputClassroom(questionForClassroom);
         }   
@@ -319,7 +337,8 @@ void specify(course temp[4])
            // Math.inputCourse("MH101");
             temp[1].inputCourse("MH101");
             cout<<"enter the desired classroom for the Math course : ";
-            getline(cin , questionForClassroom);
+            //getline(cin , questionForClassroom);
+            cin>>questionForClassroom;
             //(Math.location).inputClassroom(questionForClassroom);
             (temp[1].location).inputClassroom(questionForClassroom);    
         }
@@ -328,8 +347,9 @@ void specify(course temp[4])
          {
             //Physics.inputCourse("PH101");
             temp[2].inputCourse("PH101");
-            cout<<"enter the desired classroom for the Math course : ";
-            getline(cin , questionForClassroom);
+            cout<<"enter the desired classroom for the Phycsics course : ";
+            //getline(cin , questionForClassroom);
+            cin>>questionForClassroom;
             //(Physics.location).inputClassroom(questionForClassroom);
             (temp[2].location).inputClassroom(questionForClassroom);    
         }
@@ -338,8 +358,9 @@ void specify(course temp[4])
          {
             //workshop.inputCourse("WH101");
             temp[3].inputCourse("HH101");
-            cout<<"enter the desired classroom for the Math course : ";
-            getline(cin , questionForClassroom);
+            cout<<"enter the desired classroom for the Workshop course : ";
+            //getline(cin , questionForClassroom);
+            cin>>questionForClassroom;
             //(workshop.location).inputClassroom(questionForClassroom);
             (temp[3].location).inputClassroom(questionForClassroom);    
         }
@@ -515,7 +536,7 @@ int main()
     array<int , 2>myarr = calcuteTime(math.courseTime);
     for(int i =0; i<2; i++)
         cout<<myarr[i]<<'\t';*/
-
+    cout<<"testing for show : \n\n";
     course AdvanceProgramming;
     classroom a101;
     //inputCourse(AdvanceProgramming , "MH101");
