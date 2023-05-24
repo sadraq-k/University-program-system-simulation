@@ -137,31 +137,35 @@ public:
     }
 
     void inputClassroom(string help){
-    char auxiliary[80];
-    char assist[80];
-
+    /*char auxiliary[80];
+    char assist[80];*/
+	string auxiliary;
+	string assist;
     fstream classtemp;
     classtemp.open("proj.txt" , ios::in);
     if(classtemp.fail()){
-        cout<<"fail\tthe file has a problem"<<endl;
+        cout<<"fail\the file has a problem"<<endl;
     }
     int j;
     for(j = 1; !classtemp.eof(); j++ ){
-        classtemp.getline(assist , 80);
+			getline(classtemp,assist);
         if(assist == help)
             break;
     }
+
+    
     classtemp.close();
     classtemp.open("proj.txt" , ios::in);
 
     for(int i{1}; !classtemp.eof(); i++){
-        classtemp.getline(auxiliary , 80);
+        getline(classtemp,auxiliary);
         if(i>=j-1 && i<=j+6){
 
             if(i == j)
                 idClass = auxiliary;
-            if(i == j+1)
-                capacityClass = atoi(auxiliary);
+            if(i == j+1){
+			const char* x = auxiliary.c_str();
+                capacityClass = atoi(x);}
             if(i == j+2)
                 videoprojector = stringToBool(auxiliary);
 
@@ -214,27 +218,34 @@ public:
     }
 
     void inputCourse(string help){
-    char auxiliary[80];
-    char assist[80];
+
+    /*char auxiliary[80];
+    char assist[80];*/
+    string auxiliary;
+    string assist;
 
     fstream coursetemp;
     coursetemp.open("proj.txt" , ios::in);
     if(coursetemp.fail()){
-        cout<<"fail\tthe file has a problem"<<endl;
+        cout<<"fail\the file has a problem"<<endl;
     }
+
     int j;
-    for(j = 1; !coursetemp.eof(); j++ )
+    for(j = 1;!coursetemp.eof();j++)
     {
-        coursetemp.getline(assist , 80);
+    //	cout<<j<<endl;
+        getline(coursetemp,assist);
         if(assist == help)
             break;
     }
+
     coursetemp.close();
+
     coursetemp.open("proj.txt" , ios::in);
 
-    for(int i{1}; !coursetemp.eof(); i++){
-        coursetemp.getline(auxiliary , 80);
-        if(i>=j-1 && i<=j+11){
+    for(int i{j-1};i<=j+11;i++){
+	
+       getline(coursetemp,auxiliary);
 
             if(i == j)
                 idCourse = auxiliary;
@@ -247,32 +258,34 @@ public:
             if(i == j+4)
                 temprary = stringToBool(auxiliary);
             if(i == j+5){
-                const char* x = auxiliary;
+                const char* x = auxiliary.c_str();
                 capacityCourse[0] = atoi(x);
             }
             
             if(i == j+6){
-                const char* x = auxiliary;
+                const char* x = auxiliary.c_str();
                 courseTime.set_HS(atoi(x));
             }
             if(i == j+7){
-                const char* x = auxiliary;
+                const char* x = auxiliary.c_str();
                 courseTime.set_MS(atoi(x));
             }
             if(i == j+8){
-                const char* x = auxiliary;
+                const char* x = auxiliary.c_str();
                 courseTime.set_DH(atoi(x)); 
             }
             if(i == j+9){
-                const char* x = auxiliary;
+                const char* x = auxiliary.c_str();
                 courseTime.set_DM(atoi(x));
             }
             if(i == j+10){
                 courseTime.set_Day(auxiliary);
-            }
-            string read; 
-            if(i == j+11){
 
+            }
+
+             
+            if(i == j+11){
+            	string read;
                 for(int k=0; k<capacityCourse[0] ;k++){
                 coursetemp>>read;
                 const char* helping = read.c_str();
@@ -283,10 +296,12 @@ public:
             }
 
 
-        }
+        
 
     }
     coursetemp.close();
+    
+
 }
 
 };
@@ -312,7 +327,7 @@ void specify(course temp[4])
     course physics;
     course workshop*/
     bool check;
-    cout<<"you want to determine the location of each course yourself (enter 1) | the program specifies the location of each course (enter 0) "<<endl; 
+    cout<<"you want to determine the location of each course yourself (enter 1)| the program specifies the location of each course (enter 0) "<<endl; 
     cin>>check; 
     if(check){
         string questionForCourse;
@@ -320,7 +335,6 @@ void specify(course temp[4])
         cout<<"to determine the classroom , enter the desired course : ";
         //getline(cin , questionForCourse);
         cin>>questionForCourse;
-
         if(questionForCourse == "AdvanceProgramming")
         {
             //AdvanceProgramming.inputCourse("AP101");
