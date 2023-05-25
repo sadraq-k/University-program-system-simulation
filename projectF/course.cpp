@@ -9,6 +9,7 @@
 
 class course;
 class classroom;
+class date;
 
 using namespace std;
 
@@ -27,21 +28,8 @@ bool stringToBool(string temp){
 
 }
 
-course min(course a , course b){
 
-    if(a.courseTime.st<b.courseTime.st)
-        return a;
-    else
-        return b;
-}
 
-course max(course a , course b){
-
-    if(a.courseTime.st>b.courseTime.st)
-        return a;
-    else
-        return b;
-}
 
 //class date: braye neshan dadan tarikh va saat dars va kelas
 class date{
@@ -117,20 +105,8 @@ public:
    
 
 };
- course checkTime(course temp , course dayOfWeek){
-        course A = min(temp , dayOfWeek);
-        course B = max(temp , dayOfWeek);
-        if (!(A.courseTime.st < B.courseTime.st && A.courseTime.et < B.courseTime.et && A.courseTime.et < B.courseTime.st))
-            {
-                if(A.courseTime.st == temp.courseTime.st)
-                    return A;
 
-                if(B.courseTime.st == temp.courseTime.st)
-                    return B;    
 
-            }
-
-    }
 
 
 
@@ -232,7 +208,7 @@ public:
 
 //class course: etelaat dars
 class course{
-    friend course great(course a , course b);
+    //friend course great(course a , course b);
     friend void sortDay(course temp[4]);
     friend void mothercheck(course temp[4]);
 
@@ -356,8 +332,36 @@ T stringToInteger(string str){
         throw "Can not convert";
 
     return result;}*/
+course min(course a , course b){
 
+    if(a.courseTime.st<b.courseTime.st)
+        return a;
+    else
+        return b;
+}
 
+course max(course a , course b){
+
+    if(a.courseTime.st>b.courseTime.st)
+        return a;
+    else
+        return b;
+}
+
+ course checkTime(course temp , course dayOfWeek){
+        course A = min(temp , dayOfWeek);
+        course B = max(temp , dayOfWeek);
+        if (!(A.courseTime.st < B.courseTime.st && A.courseTime.et < B.courseTime.et && A.courseTime.et < B.courseTime.st))
+            {
+                if(A.courseTime.st == temp.courseTime.st)
+                    return A;
+
+                if(B.courseTime.st == temp.courseTime.st)
+                    return B;    
+
+            }
+
+    }
 
 
 //hanooz kamel nashode vali baraye moshakhas kardan mahal ya hamoon kelase
@@ -496,7 +500,7 @@ void sortDay(course temp[4])
 
 course stackForTime[4];
 course stackForTeacher[4];
-course stackForStudent[4];
+course stackForStudent[40];
 
 
 void mothercheck(course temp[4])
@@ -544,12 +548,20 @@ void mothercheck(course temp[4])
                     c++;
                 }
 
-
+            
                 if((temp[i].teachername == week[j][k].teachername) && (temp[i].name != week[j][k].name)){
                     stackForTeacher[t] = checkTime(temp[i] , week[j][k]);
                     t++;
                 }
-
+                int h=0;
+                for(int z{0} ; z<(week[j][k].capacityCourse); z++){
+                    for(int q{0};q<(week[j][k].capacityCourse);q++){
+                        if((temp[i].studentList[z] == week[j][k].studentList[q]) && (temp[i].name != week[j][k].name)){
+                        
+                        }
+                    }
+                }
+                
 
 
             }
