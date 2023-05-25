@@ -5,11 +5,17 @@
 #include<array>
 #include <cstdlib>
 #include<algorithm>
-#include<sstream>
+//#include<sstream>
 
 class course;
+class classroom;
 
 using namespace std;
+
+
+
+
+
 //tabdil string be bool 
 bool stringToBool(string temp){
     bool check{true};
@@ -20,11 +26,28 @@ bool stringToBool(string temp){
     return check;
 
 }
+
+course min(course a , course b){
+
+    if(a.courseTime.st<b.courseTime.st)
+        return a;
+    else
+        return b;
+}
+
+course max(course a , course b){
+
+    if(a.courseTime.st>b.courseTime.st)
+        return a;
+    else
+        return b;
+}
+
 //class date: braye neshan dadan tarikh va saat dars va kelas
 class date{
    // friend auto calcuteTime(date object);
     friend void sortDay(course temp[4]);
-
+    friend course checkTime(course temp , course dayOfWeek);
 private:
     /*int day;
     int month;
@@ -90,7 +113,27 @@ public:
         st=hourStart+(0.01*minStart);
         et=hourEnd+(0.01*minEnd);
     }
+
+   
+
 };
+ course checkTime(course temp , course dayOfWeek){
+        course A = min(temp , dayOfWeek);
+        course B = max(temp , dayOfWeek);
+        if (!(A.courseTime.st < B.courseTime.st && A.courseTime.et < B.courseTime.et && A.courseTime.et < B.courseTime.st))
+            {
+                if(A.courseTime.st == temp.courseTime.st)
+                    return A;
+
+                if(B.courseTime.st == temp.courseTime.st)
+                    return B;    
+
+            }
+
+    }
+
+
+
 
 // baraye mohasebe saat payan dars kelas
 /*
@@ -233,6 +276,7 @@ public:
     int j;
     for(j = 1;!coursetemp.eof();j++)
     {
+    //	cout<<j<<endl;
         getline(coursetemp,assist);
         if(assist == help)
             break;
@@ -242,12 +286,9 @@ public:
 
     coursetemp.open("proj.txt" , ios::in);
 
-    for(int i{1};!coursetemp.eof();i++){
-
-
+    for(int i{j-1};i<=j+11;i++){
+	
        getline(coursetemp,auxiliary);
-
-       if(i>=j-1 && i<=j+11){
 
             if(i == j)
                 idCourse = auxiliary;
@@ -285,16 +326,20 @@ public:
 
             }
 
+             
             if(i == j+11){
-                istringstream helping(auxiliary);
+            	string read;
                 for(int k=0; k<capacityCourse[0] ;k++){
-                    helping>>studentList[k];
-                    coursetemp.ignore(1,' ');
+                coursetemp>>read;
+                const char* helping = read.c_str();
+                studentList[k] = (atoi(helping));
+                coursetemp.ignore(1,' ');
                 }
 
             }
 
-        }
+
+        
 
     }
     coursetemp.close();
@@ -328,7 +373,6 @@ void specify(course temp[4])
     cout<<"you want to determine the location of each course yourself (enter 1)| the program specifies the location of each course (enter 0) "<<endl; 
     cin>>check; 
     if(check){
-      for(int i{0}; i<4; i++){  
         string questionForCourse;
         string questionForClassroom; 
         cout<<"to determine the classroom , enter the desired course : ";
@@ -377,7 +421,6 @@ void specify(course temp[4])
             //(workshop.location).inputClassroom(questionForClassroom);
             (temp[3].location).inputClassroom(questionForClassroom);    
         }
-      }
     }
 
 }
@@ -450,29 +493,15 @@ void sortDay(course temp[4])
 
 //template <typename T>
 
-  course min(course a , course b)
-{
 
-    if(a.courseTime.st<b.courseTime.st)
-        return a;
-    else
-        return b;
-}
+course stackForTime[4];
+course stackForTeacher[4];
+course stackForStudent[4];
 
-  course max(course a , course b)
-{
-
-    if(a.courseTime.st>b.courseTime.st)
-        return a;
-    else
-        return b;
-}
-
-course stack[5];
 
 void mothercheck(course temp[4])
 {
-   // int A[4];
+
     for (int i = 0; i < 4; ++i)
     {
         if (temp[i].capacityCourse[0]>temp[i].location.capacityClass)
@@ -486,17 +515,18 @@ void mothercheck(course temp[4])
         }
        int j{0};
 
-        for(int j=0 ; j < 7 ; j++)
+        for(int j=0 ; j < 4 ; j++)
         {
             for (int k = 0; k < 4 ; ++k)
             {
                 int c = 0;
-                if ((temp[i].location.idClass == week[j][k].location.idClass))
+                int t = 0;
+                int m = 0;
+                if ((temp[i].location.idClass == week[j][k].location.idClass) && (temp[i].name != week[j][k].name))
                 {
-                    course A = min(temp[i], week[j][k]);
+                    /*course A = min(temp[i], week[j][k]);
                     course B = max(temp[i], week[j][k]);
-                    if (A.courseTime.st < B.courseTime.st && A.courseTime.et < B.courseTime.et &&
-                        A.courseTime.et < B.courseTime.st)
+                    if (!(A.courseTime.st < B.courseTime.st && A.courseTime.et < B.courseTime.et && A.courseTime.et < B.courseTime.st))
                     {
                         if (A.courseTime.st == temp[i].courseTime.st)
                         {
@@ -509,10 +539,19 @@ void mothercheck(course temp[4])
                             c++;
                         }
 
-                    }
-
-
+                    }*/
+                    stackForTime[c] = checkTime(temp[i] , week[j][k]);
+                    c++;
                 }
+
+
+                if((temp[i].teachername == week[j][k].teachername) && (temp[i].name != week[j][k].name)){
+                    stackForTeacher[t] = checkTime(temp[i] , week[j][k]);
+                    t++;
+                }
+
+
+
             }
         }
     }
@@ -550,7 +589,7 @@ int main()
     array<int , 2>myarr = calcuteTime(math.courseTime);
     for(int i =0; i<2; i++)
         cout<<myarr[i]<<'\t';*/
-    cout<<"-----------------------------------------------------------------------------------\ntesting for show :\n";
+    cout<<"testing for show : \n\n";
     course AdvanceProgramming;
     classroom a101;
     //inputCourse(AdvanceProgramming , "MH101");
