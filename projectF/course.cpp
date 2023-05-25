@@ -5,7 +5,7 @@
 #include<array>
 #include <cstdlib>
 #include<algorithm>
-//#include<sstream>
+#include<sstream>
 
 class course;
 class classroom;
@@ -260,7 +260,7 @@ public:
         }
     }
 
-    void inputCourse(string help){
+ void inputCourse(string help){
 
     /*char auxiliary[80];
     char assist[80];*/
@@ -276,7 +276,6 @@ public:
     int j;
     for(j = 1;!coursetemp.eof();j++)
     {
-    //	cout<<j<<endl;
         getline(coursetemp,assist);
         if(assist == help)
             break;
@@ -286,9 +285,12 @@ public:
 
     coursetemp.open("proj.txt" , ios::in);
 
-    for(int i{j-1};i<=j+11;i++){
-	
+    for(int i{1};!coursetemp.eof();i++){
+
+
        getline(coursetemp,auxiliary);
+
+       if(i>=j-1 && i<=j+11){
 
             if(i == j)
                 idCourse = auxiliary;
@@ -326,20 +328,16 @@ public:
 
             }
 
-             
             if(i == j+11){
-            	string read;
+                istringstream helping(auxiliary);
                 for(int k=0; k<capacityCourse[0] ;k++){
-                coursetemp>>read;
-                const char* helping = read.c_str();
-                studentList[k] = (atoi(helping));
-                coursetemp.ignore(1,' ');
+                    helping>>studentList[k];
+                    coursetemp.ignore(1,' ');
                 }
 
             }
 
-
-        
+        }
 
     }
     coursetemp.close();
@@ -373,6 +371,7 @@ void specify(course temp[4])
     cout<<"you want to determine the location of each course yourself (enter 1)| the program specifies the location of each course (enter 0) "<<endl; 
     cin>>check; 
     if(check){
+     for(int i{0}; i<4; i++){
         string questionForCourse;
         string questionForClassroom; 
         cout<<"to determine the classroom , enter the desired course : ";
@@ -421,6 +420,7 @@ void specify(course temp[4])
             //(workshop.location).inputClassroom(questionForClassroom);
             (temp[3].location).inputClassroom(questionForClassroom);    
         }
+     }
     }
 
 }
@@ -589,7 +589,7 @@ int main()
     array<int , 2>myarr = calcuteTime(math.courseTime);
     for(int i =0; i<2; i++)
         cout<<myarr[i]<<'\t';*/
-    cout<<"testing for show : \n\n";
+    cout<<"------------------------------------------------------------------------\ntesting for show :\n";
     course AdvanceProgramming;
     classroom a101;
     //inputCourse(AdvanceProgramming , "MH101");
