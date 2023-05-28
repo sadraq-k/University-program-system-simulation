@@ -46,7 +46,8 @@ private:
     int minEnd;
     int durationMin;
     int durationHour;
-    string day;
+    string day1;
+    string day2;
 public:
     double st,et;
     /*date(int d = 1 , int m = 1 , int y = 1401 ,int hS = 0 , int mS = 0 , int duH = 0 , int duM = 0 ){
@@ -78,8 +79,9 @@ public:
     {
         durationMin = a;
     }
-    void set_Day(string days){
-        day = days;
+    void set_Day(string d1,string d2){
+        day1=d1;
+        day2 =d2;
     }
 
    void calcuteTime()
@@ -161,7 +163,7 @@ public:
 	string auxiliary;
 	string assist;
     fstream classtemp;
-    classtemp.open("proj.txt" , ios::in);
+    classtemp.open("location.txt" , ios::in);
     if(classtemp.fail()){
         cout<<"fail\the file has a problem"<<endl;
     }
@@ -174,7 +176,7 @@ public:
 
     
     classtemp.close();
-    classtemp.open("proj.txt" , ios::in);
+    classtemp.open("location.txt" , ios::in);
 
     for(int i{1}; !classtemp.eof(); i++){
         getline(classtemp,auxiliary);
@@ -229,7 +231,7 @@ public:
     date courseTime;
     void show(){
         cout<<boolalpha;
-        cout<<idCourse<<endl<<name<<endl<<teachername<<endl<<videoprojector[0]<<endl<<temprary<<endl<<capacityCourse[0]<<endl;
+        cout<<"idcourse:"<<idCourse<<endl<<"name:"<<name<<endl<<"teacher name:"<<teachername<<endl<<"videoprojector:"<<videoprojector[0]<<endl<<"temperary:"<<temprary<<endl<<"capacity course:"<<capacityCourse[0]<<endl;
         cout<<"student list : ";
         for(int i=0;i<capacityCourse[0];i++){
             cout<<studentList[i]<<" ";
@@ -300,7 +302,14 @@ public:
                 courseTime.set_DM(atoi(x));
             }
             if(i == j+10){
-                courseTime.set_Day(auxiliary);
+                //courseTime.set_Day(auxiliary);
+                string d1;
+                string d2;
+                istringstream helping(auxiliary);
+                helping>>d1;
+                coursetemp.ignore(1,' ');
+                helping>>d2;
+                courseTime.set_Day(d1 , d2);
 
             }
 
@@ -442,49 +451,49 @@ void sortDay(course temp[4])
     course friday[4];
     int j{0};int z{0};int w{0};int k{0};int y{0};int m{0};int n{0};
     for(int i =0; i<4; i++){
-        if(temp[i].courseTime.day == "saturday")
+        if(temp[i].courseTime.day1 == "saturday" || temp[i].courseTime.day2 == "saturday")
         {
           //  for(int j=0; j<4; j++)
              saturday[j] = temp[i];
              j++;
         }
         week[0][4]=saturday[4];
-        if(temp[i].courseTime.day == "sunday")
+        if(temp[i].courseTime.day1 == "sunday" || temp[i].courseTime.day2 == "sunday")
         {
             //for(int j=0; j<4; j++)
                  sunday[z] = temp[i];
                  z++;
         }
         week[1][4]= sunday[4];
-        if(temp[i].courseTime.day == "monday")
+        if(temp[i].courseTime.day1 == "monday" || temp[i].courseTime.day2 == "monday")
         {
            // for(int j=0; j<4; j++)
                  monday[w] = temp[i];
                  w++;
         }
         week[2][4]=monday[4];
-        if(temp[i].courseTime.day == "tuesday")
+        if(temp[i].courseTime.day1 == "tuesday" || temp[i].courseTime.day2 == "tuesday")
         {
             //for(int j=0; j<4; j++)
                  tuesday[k] = temp[i];
                  k++;
         }
         week[3][4]=tuesday[4];
-        if(temp[i].courseTime.day == "wednesday")
+        if(temp[i].courseTime.day1 == "wednesday" || temp[i].courseTime.day2 == "wednesday")
         {
            // for(int j=0; j<4; j++)
                  wednesday[y] = temp[i];
                  y++;
         }
         week[4][4]=wednesday[4];
-        if(temp[i].courseTime.day == "thurday")
+        if(temp[i].courseTime.day1 == "thurday" || temp[i].courseTime.day2 == "thurday")
         {
            // for(int j=0; j<4; j++)
                  thurday[m] = temp[i];
                  m++;
         }
         week[5][4]=thurday[4];
-        if(temp[i].courseTime.day == "friday")
+        if(temp[i].courseTime.day1 == "friday" || temp[i].courseTime.day2 == "friday")
         {
            // for(int j=0; j<4; j++)
                  friday[n] = temp[i];
@@ -500,6 +509,7 @@ void sortDay(course temp[4])
 
 course stackForTime[4];
 course stackForTeacher[4];
+course stackForIdCourse[4];
 course stackForStudent[40];
 
 
@@ -526,6 +536,7 @@ void mothercheck(course temp[4])
                 int c = 0;
                 int t = 0;
                 int m = 0;
+                int r = 0;
                 if ((temp[i].location.idClass == week[j][k].location.idClass) && (temp[i].name != week[j][k].name))
                 {
                     /*course A = min(temp[i], week[j][k]);
@@ -553,14 +564,19 @@ void mothercheck(course temp[4])
                     stackForTeacher[t] = checkTime(temp[i] , week[j][k]);
                     t++;
                 }
-                int h=0;
+
+                if((temp[i].idCourse == week[j][k].idCourse) && (temp[i].name != week[j][k].name)){
+                    stackForIdCourse[r] = temp[i];
+                    r++;
+                }
+                /*int h=0;
                 for(int z{0} ; z<(week[j][k].capacityCourse); z++){
                     for(int q{0};q<(week[j][k].capacityCourse);q++){
                         if((temp[i].studentList[z] == week[j][k].studentList[q]) && (temp[i].name != week[j][k].name)){
                         
                         }
                     }
-                }
+                }*/
                 
 
 
