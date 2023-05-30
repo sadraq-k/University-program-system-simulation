@@ -35,7 +35,7 @@ bool stringToBool(string temp){
 class date{
    // friend auto calcuteTime(date object);
     friend void sortDay(course temp[4]);
-    friend course checkTime(course temp , course dayOfWeek);
+    friend bool checkTime(course temp , course dayOfWeek);
 private:
     /*int day;
     int month;
@@ -83,6 +83,12 @@ public:
         day1=d1;
         day2 =d2;
     }
+    string ret_day1(){
+        return day1;
+   }
+    string ret_day2(){
+        return day2;
+   }
 
    void calcuteTime()
     {
@@ -213,6 +219,7 @@ class course{
     //friend course great(course a , course b);
     friend void sortDay(course temp[4]);
     friend void mothercheck(course temp[4]);
+    friend bool checkTime(course , course);
 
     //friend void inputCourse(course&temp , string help);
 private:
@@ -357,18 +364,20 @@ course max(course a , course b){
         return b;
 }
 
- course checkTime(course temp , course dayOfWeek){
+ bool checkTime(course temp , course dayOfWeek){
         course A = min(temp , dayOfWeek);
         course B = max(temp , dayOfWeek);
         if (!(A.courseTime.st < B.courseTime.st && A.courseTime.et < B.courseTime.et && A.courseTime.et < B.courseTime.st))
             {
-                if(A.courseTime.st == temp.courseTime.st)
+                /*if(A.courseTime.st == temp.courseTime.st)
                     return A;
 
                 if(B.courseTime.st == temp.courseTime.st)
-                    return B;    
-
+                    return B;*/
+                return 1;
             }
+        else
+            return 0;    
 
     }
 
@@ -507,10 +516,10 @@ void sortDay(course temp[4])
 //template <typename T>
 
 
-course stackForTime[4];
+/*course stackForTime[4];
 course stackForTeacher[4];
 course stackForIdCourse[4];
-course stackForStudent[40];
+course stackForStudent[40];*/
 
 
 void mothercheck(course temp[4])
@@ -520,25 +529,35 @@ void mothercheck(course temp[4])
     {
         if (temp[i].capacityCourse[0]>temp[i].location.capacityClass)
         {
+            cout<<"The capacity of "<<temp[i].name<<" is greater than the capacity of the location"<<endl;
+            
             temp[i].capacityCourse[1]=1;
 
         }
-        if (temp[i].videoprojector[0]==temp[i].location.videoprojector)
+        if ( (temp[i].videoprojector[0]) && (!temp[i].location.videoprojector))
         {
+            cout<<temp[i].name<<" needs a video projector and location have not a video projector "<<endl;
             temp[i].videoprojector[1]=1;
         }
        int j{0};
 
         for(int j=0 ; j < 4 ; j++)
         {
-            for (int k = 0; k < 4 ; ++k)
+            for (int k = j+1; k < 4 ; k++)
             {
-                int c = 0;
+               /* int c = 0;
                 int t = 0;
                 int m = 0;
-                int r = 0;
-                if ((temp[i].location.idClass == week[j][k].location.idClass) && (temp[i].name != week[j][k].name))
-                {
+                int r = 0;*/
+                
+                if( (week[i][j].location.idClass == week[i][k].location.idClass) && (week[i][j].name != week[i][k].name) && (checkTime(week[i][j], week[j][k])) )
+                    cout<<week[i][j].name<<" and "<<week[i][k].name<<" have time overlap on "<<i<<"of the week "<<endl;
+                
+
+
+
+                //if ((temp[i].location.idClass == week[j][k].location.idClass) && (temp[i].courseTime.ret_day1()==week[j][k].courseTime.ret_day1() || ) && (temp[i].name != week[j][k].name))
+                //{
                     /*course A = min(temp[i], week[j][k]);
                     course B = max(temp[i], week[j][k]);
                     if (!(A.courseTime.st < B.courseTime.st && A.courseTime.et < B.courseTime.et && A.courseTime.et < B.courseTime.st))
@@ -555,19 +574,21 @@ void mothercheck(course temp[4])
                         }
 
                     }*/
-                    stackForTime[c] = checkTime(temp[i] , week[j][k]);
-                    c++;
-                }
+                  //  stackForTime[c] = checkTime(temp[i] , week[j][k]);
+                   // c++;
+               // }
 
+                if( (week[i][j].teachername == week[j][k].teachername) && (week[i][j].name != week[i][k].name) && (checkTime(week[i][j], week[j][k])) )
+                    cout<<week[i][j].name<<" and "<<week[i][k].name<<" have time teacher interfrence on "<<i<<"of the week "<<endl;
+                //if((temp[i].teachername == week[j][k].teachername) && (temp[i].name != week[j][k].name)){
+                   // stackForTeacher[t] = checkTime(temp[i] , week[j][k]);
+                   // t++;
+                //}
             
-                if((temp[i].teachername == week[j][k].teachername) && (temp[i].name != week[j][k].name)){
-                    stackForTeacher[t] = checkTime(temp[i] , week[j][k]);
-                    t++;
-                }
-
-                if((temp[i].idCourse == week[j][k].idCourse) && (temp[i].name != week[j][k].name)){
-                    stackForIdCourse[r] = temp[i];
-                    r++;
+                if((week[i][j].idCourse == week[i][k].idCourse) && (temp[i].name != week[j][k].name)){
+                    cout<<"The id of "<<week[i][j].name<<" is the same as "<<week[i][k].name<<endl;
+                   // stackForIdCourse[r] = temp[i];
+                    //r++;
                 }
                 /*int h=0;
                 for(int z{0} ; z<(week[j][k].capacityCourse); z++){
