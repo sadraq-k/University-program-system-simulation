@@ -590,14 +590,14 @@ void mothercheck(course temp[4])
                    // stackForIdCourse[r] = temp[i];
                     //r++;
                 }
-                /*int h=0;
-                for(int z{0} ; z<(week[j][k].capacityCourse); z++){
-                    for(int q{0};q<(week[j][k].capacityCourse);q++){
-                        if((temp[i].studentList[z] == week[j][k].studentList[q]) && (temp[i].name != week[j][k].name)){
+                
+                for(int z{0} ; z<(week[i][j].capacityCourse[0]); z++){
+                    for(int q{0};q<(week[i][k].capacityCourse[0]);q++){
+                        if((week[i][j].studentList[z] == week[i][k].studentList[q]) && (temp[i].name != week[j][k].name) && (checkTime(week[i][j] , week[j][k])))
+                            cout<<"student number"<<week[i][j].studentList[z]<<"is present in both "<<week[i][j].name<<" and "<<week[i][k].name<<" courses and there is a time overlap"<<endl;
                         
-                        }
                     }
-                }*/
+                }
                 
 
 
