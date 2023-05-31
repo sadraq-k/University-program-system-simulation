@@ -145,6 +145,7 @@ auto calcuteTime(date object)
 //class classroom : etalaat kelas
 class classroom{
     friend void mothercheck(course temp[4]);
+    //friend void specify(course temp[4] , classroom help[3]);
    // friend void check();
    // friend void inputClassroom(classroom& temp ,string help);
 private:
@@ -384,13 +385,19 @@ course max(course a , course b){
 
 
 //hanooz kamel nashode vali baraye moshakhas kardan mahal ya hamoon kelase
-void specify(course temp[4])
+void specify(course temp[4] , classroom help[3])
 {
 
     temp[0].inputCourse("AP101");
     temp[1].inputCourse("MH101");
     temp[2].inputCourse("PH101");
     temp[3].inputCourse("HH101");
+    
+    help[0].inputClassroom("401");
+    help[1].inputClassroom("402");
+    help[2].inputClassroom("501");
+    
+
 
     bool check;
     cout<<"you want to determine the location of each course yourself (enter 1)| the program specifies the location of each course (enter 0) "<<endl; 
@@ -618,7 +625,13 @@ int main()
     course  physics; 
     course workshop; 
     course courses[4] = {advp , math , physics , workshop};
-    specify(courses);
+    classroom a;
+    classroom b;
+    classroom c;
+    classroom locations[3] = {a,b,c};
+
+
+    specify(courses , locations);
 
 
 /*
