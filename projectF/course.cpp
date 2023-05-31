@@ -637,6 +637,7 @@ void mothercheck(course temp[4])
                     cout<<"The id of "<<week[i][j].name<<" is the same as "<<week[i][k].name<<endl;
                    
                 }
+
                 
                 for(int z{0} ; z<(week[i][j].capacityCourse[0]); z++)
                 {
@@ -646,9 +647,16 @@ void mothercheck(course temp[4])
 
                         if((week[i][j].studentList[z] == week[i][k].studentList[q]) && (temp[i].name != week[j][k].name) && (checkTime(week[i][j] , week[j][k])))
                             cout<<"student number"<<week[i][j].studentList[z]<<"is present in both "<<week[i][j].name<<" and "<<week[i][k].name<<" courses and there is a time overlap"<<endl;
+
+                /*int h=0;
+                for(int z{0} ; z<(week[j][k].capacityCourse); z++){
+                    for(int q{0};q<(week[j][k].capacityCourse);q++){
+                        if((temp[i].studentList[z] == week[j][k].studentList[q]) && (temp[i].name != week[j][k].name)){
+>>>>>>> parent of be6ed48 (Completion of the check function (adding students check))
                         
+                        }
                     }
-                }
+                }*/
                 
 
 
@@ -721,11 +729,6 @@ int main()
    return 0;
     
     }
-
-
-
-
-
 
 
 
