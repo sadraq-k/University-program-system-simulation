@@ -1,0 +1,8 @@
+to determine the classroom , enter the desired course : AdvanceProgramming 
+enter the desired classroom for the Advance Programming course : 401
+to determine the classroom , enter the desired course : Math
+enter the desired classroom for the Math course : 402
+to determine the classroom , enter the desired course : Physics
+enter the desired classroom for the Phycsics course : 501
+to determine the classroom , enter the desired course : Workshop
+enter the desired classroom for the Workshop course : 402
