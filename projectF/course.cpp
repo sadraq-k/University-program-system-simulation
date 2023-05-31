@@ -220,6 +220,7 @@ class course{
     friend void sortDay(course temp[4]);
     friend void mothercheck(course temp[4]);
     friend bool checkTime(course , course);
+    void autoSortLocationForCourses(course temp[4]);
 
     //friend void inputCourse(course&temp , string help);
 private:
@@ -385,10 +386,12 @@ course max(course a , course b){
 //hanooz kamel nashode vali baraye moshakhas kardan mahal ya hamoon kelase
 void specify(course temp[4])
 {
-   /* course AdvanceProgramming;
-    course Math;
-    course physics;
-    course workshop*/
+
+    temp[0].inputCourse("AP101");
+    temp[1].inputCourse("MH101");
+    temp[2].inputCourse("PH101");
+    temp[3].inputCourse("HH101");
+
     bool check;
     cout<<"you want to determine the location of each course yourself (enter 1)| the program specifies the location of each course (enter 0) "<<endl; 
     cin>>check; 
@@ -402,7 +405,7 @@ void specify(course temp[4])
         if(questionForCourse == "AdvanceProgramming")
         {
             //AdvanceProgramming.inputCourse("AP101");
-            temp[0].inputCourse("AP101");
+            //temp[0].inputCourse("AP101");
             cout<<"enter the desired classroom for the Advance Programming course : ";
             //getline(cin , questionForClassroom);
             cin>>questionForClassroom;
@@ -413,7 +416,7 @@ void specify(course temp[4])
         if(questionForCourse == "Math")
         {
            // Math.inputCourse("MH101");
-            temp[1].inputCourse("MH101");
+            //temp[1].inputCourse("MH101");
             cout<<"enter the desired classroom for the Math course : ";
             //getline(cin , questionForClassroom);
             cin>>questionForClassroom;
@@ -424,7 +427,7 @@ void specify(course temp[4])
          if(questionForCourse == "Physics")
          {
             //Physics.inputCourse("PH101");
-            temp[2].inputCourse("PH101");
+            //temp[2].inputCourse("PH101");
             cout<<"enter the desired classroom for the Phycsics course : ";
             //getline(cin , questionForClassroom);
             cin>>questionForClassroom;
@@ -435,7 +438,7 @@ void specify(course temp[4])
          if(questionForCourse == "Workshop")
          {
             //workshop.inputCourse("WH101");
-            temp[3].inputCourse("HH101");
+            //temp[3].inputCourse("HH101");
             cout<<"enter the desired classroom for the Workshop course : ";
             //getline(cin , questionForClassroom);
             cin>>questionForClassroom;
@@ -443,7 +446,14 @@ void specify(course temp[4])
             (temp[3].location).inputClassroom(questionForClassroom);    
         }
      }
+     mothercheck(temp);
     }
+
+    else
+        autoSortLocationForCourses(temp);
+
+
+
 
 }
 
@@ -545,54 +555,24 @@ void mothercheck(course temp[4])
         {
             for (int k = j+1; k < 4 ; k++)
             {
-               /* int c = 0;
-                int t = 0;
-                int m = 0;
-                int r = 0;*/
-                
+               
                 if( (week[i][j].location.idClass == week[i][k].location.idClass) && (week[i][j].name != week[i][k].name) && (checkTime(week[i][j], week[j][k])) )
                     cout<<week[i][j].name<<" and "<<week[i][k].name<<" have time overlap on "<<i<<"of the week "<<endl;
-                
-
-
-
-                //if ((temp[i].location.idClass == week[j][k].location.idClass) && (temp[i].courseTime.ret_day1()==week[j][k].courseTime.ret_day1() || ) && (temp[i].name != week[j][k].name))
-                //{
-                    /*course A = min(temp[i], week[j][k]);
-                    course B = max(temp[i], week[j][k]);
-                    if (!(A.courseTime.st < B.courseTime.st && A.courseTime.et < B.courseTime.et && A.courseTime.et < B.courseTime.st))
-                    {
-                        if (A.courseTime.st == temp[i].courseTime.st)
-                        {
-                            stack[c] = temp[i];
-                            c++;
-                        }
-                        if (B.courseTime.st == temp[i].courseTime.st)
-                        {
-                            stack[c] = temp[i];
-                            c++;
-                        }
-
-                    }*/
-                  //  stackForTime[c] = checkTime(temp[i] , week[j][k]);
-                   // c++;
-               // }
+            
 
                 if( (week[i][j].teachername == week[j][k].teachername) && (week[i][j].name != week[i][k].name) && (checkTime(week[i][j], week[j][k])) )
                     cout<<week[i][j].name<<" and "<<week[i][k].name<<" have time teacher interfrence on "<<i<<"of the week "<<endl;
-                //if((temp[i].teachername == week[j][k].teachername) && (temp[i].name != week[j][k].name)){
-                   // stackForTeacher[t] = checkTime(temp[i] , week[j][k]);
-                   // t++;
-                //}
+                
             
                 if((week[i][j].idCourse == week[i][k].idCourse) && (temp[i].name != week[j][k].name)){
                     cout<<"The id of "<<week[i][j].name<<" is the same as "<<week[i][k].name<<endl;
-                   // stackForIdCourse[r] = temp[i];
-                    //r++;
+                   
                 }
                 
                 for(int z{0} ; z<(week[i][j].capacityCourse[0]); z++){
+
                     for(int q{0};q<(week[i][k].capacityCourse[0]);q++){
+
                         if((week[i][j].studentList[z] == week[i][k].studentList[q]) && (temp[i].name != week[j][k].name) && (checkTime(week[i][j] , week[j][k])))
                             cout<<"student number"<<week[i][j].studentList[z]<<"is present in both "<<week[i][j].name<<" and "<<week[i][k].name<<" courses and there is a time overlap"<<endl;
                         
@@ -605,8 +585,20 @@ void mothercheck(course temp[4])
         }
     }
 }
+
+
+
+void autoSortLocationForCourses(course temp[4]){
+
+}
+
+
 /*( !( (temp[i].courseTime.st>saturday[j].courseTime.st)&&(temp[i].courseTime.et>saturday[j].courseTime.et)&&(temp[i].courseTime.st>saturday[j].courseTime.et) ) ||
 !( (temp[i].courseTime.st < saturday[j].courseTime.st)&&(temp[i].courseTime.et < saturday[j].courseTime.et)&&(temp[i].courseTime.et < saturday[j].courseTime.st) )  )*/
+
+
+
+
 
 int main()
 {
