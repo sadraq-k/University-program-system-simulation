@@ -630,6 +630,7 @@ void mothercheck(course temp[4])
 
                 if( (week[i][j].teachername == week[j][k].teachername) && (week[i][j].name != week[i][k].name) && (checkTime(week[i][j], week[j][k])) )
                     cout<<week[i][j].name<<" and "<<week[i][k].name<<" have time teacher interfrence on "<<i<<"of the week "<<endl;
+<<<<<<< HEAD
                 
             
                 if((week[i][j].idCourse == week[i][k].idCourse) && (temp[i].name != week[j][k].name))
@@ -648,10 +649,25 @@ void mothercheck(course temp[4])
                         if((week[i][j].studentList[z] == week[i][k].studentList[q]) && (temp[i].name != week[j][k].name) && (checkTime(week[i][j] , week[j][k])))
                             cout<<"student number"<<week[i][j].studentList[z]<<"is present in both "<<week[i][j].name<<" and "<<week[i][k].name<<" courses and there is a time overlap"<<endl;
 
+=======
+                //if((temp[i].teachername == week[j][k].teachername) && (temp[i].name != week[j][k].name)){
+                   // stackForTeacher[t] = checkTime(temp[i] , week[j][k]);
+                   // t++;
+                //}
+            
+                if((week[i][j].idCourse == week[i][k].idCourse) && (temp[i].name != week[j][k].name)){
+                    cout<<"The id of "<<week[i][j].name<<" is the same as "<<week[i][k].name<<endl;
+                   // stackForIdCourse[r] = temp[i];
+                    //r++;
+                }
+>>>>>>> parent of be6ed48 (Completion of the check function (adding students check))
                 /*int h=0;
                 for(int z{0} ; z<(week[j][k].capacityCourse); z++){
                     for(int q{0};q<(week[j][k].capacityCourse);q++){
                         if((temp[i].studentList[z] == week[j][k].studentList[q]) && (temp[i].name != week[j][k].name)){
+<<<<<<< HEAD
+>>>>>>> parent of be6ed48 (Completion of the check function (adding students check))
+=======
 >>>>>>> parent of be6ed48 (Completion of the check function (adding students check))
                         
                         }
