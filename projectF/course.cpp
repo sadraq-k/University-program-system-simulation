@@ -413,7 +413,7 @@ course max(course a , course b){
 
 
 //hanooz kamel nashode vali baraye moshakhas kardan mahal ya hamoon kelase
-void specify(course temp[4] /*, classroom help[4]*/)
+void specify(course temp[10] /*, classroom help[4]*/)
 {
 
    /* help[0].inputClassroom("401");
@@ -428,7 +428,7 @@ void specify(course temp[4] /*, classroom help[4]*/)
     cout<<"you want to determine the location of each course yourself (enter 1)| the program specifies the location of each course (enter 0) "<<endl; 
     cin>>check; 
     if(check){
-     for(int i{0}; i<4; i++){
+     for(int i{0}; i<10; i++){
         string questionForCourse;
         string questionForClassroom; 
         cout<<"to determine the classroom , enter the desired course : ";
@@ -437,7 +437,7 @@ void specify(course temp[4] /*, classroom help[4]*/)
         if(questionForCourse == "AdvanceProgramming")
         {
             //AdvanceProgramming.inputCourse("AP101");
-            temp[0].inputInformation("AP101");
+            //temp[0].inputInformation("AP101");
             cout<<"enter the desired classroom for the Advance Programming course : ";
             //getline(cin , questionForClassroom);
             cin>>questionForClassroom;
@@ -448,7 +448,7 @@ void specify(course temp[4] /*, classroom help[4]*/)
         if(questionForCourse == "Math")
         {
            // Math.inputCourse("MH101");
-            temp[1].inputInformation("MH101");
+            //temp[1].inputInformation("MH101");
             cout<<"enter the desired classroom for the Math course : ";
             //getline(cin , questionForClassroom);
             cin>>questionForClassroom;
@@ -459,7 +459,7 @@ void specify(course temp[4] /*, classroom help[4]*/)
          if(questionForCourse == "Physics")
          {
             //Physics.inputCourse("PH101");
-            temp[2].inputInformation("PH101");
+            //temp[2].inputInformation("PH101");
             cout<<"enter the desired classroom for the Phycsics course : ";
             //getline(cin , questionForClassroom);
             cin>>questionForClassroom;
@@ -470,12 +470,54 @@ void specify(course temp[4] /*, classroom help[4]*/)
          if(questionForCourse == "Workshop")
          {
             //workshop.inputCourse("WH101");
-            temp[3].inputInformation("WH101");
+            //temp[3].inputInformation("WH101");
             cout<<"enter the desired classroom for the Workshop course : ";
             //getline(cin , questionForClassroom);
             cin>>questionForClassroom;
             //(workshop.location).inputClassroom(questionForClassroom);
             (temp[3].location).inputInformation(questionForClassroom);    
+        }
+
+        if(questionForCourse == "Differntial" ){
+           // temp[4].inputInformation("DH101");
+            cout<<"enter the desired classroom for the Differntial course : ";
+            cin>>questionForClassroom;
+            (temp[4].location).inputInformation(questionForClassroom);
+        }
+        
+        if(questionForCourse == "Statistics"){
+           // temp[5].inputInformation("SH101");
+            cout<<"enter the desired classroom for the Statistics course : ";
+            cin>>questionForClassroom;
+            (temp[5].location).inputInformation(questionForClassroom);
+        }
+        
+        if(questionForCourse == "History"){
+            //temp[6].inputInformation("HH101");
+            cout<<"enter the desired classroom for the History course : ";
+            cin>>questionForClassroom;
+            (temp[6].location).inputInformation(questionForClassroom);
+        }
+        
+        if(questionForCourse == "DataStructure"){
+           // temp[7].inputInformation("DSH101");
+            cout<<"enter the desired classroom for the DataStructure course : ";
+            cin>>questionForClassroom;
+            (temp[7].location).inputInformation(questionForClassroom);
+        }
+        
+        if(questionForCourse == "LogicalCircuit"){
+            //temp[8].inputInformation("LCH101");
+            cout<<"enter the desired classroom for the LogicalCircuit course : ";
+            cin>>questionForClassroom;
+            (temp[8].location).inputInformation(questionForClassroom);
+        }
+        
+        if(questionForCourse == "DiscreteMath"){
+            //temp[9].inputInformation("DMH101");
+            cout<<"enter the desired classroom for the DiscreteMath course : ";
+            cin>>questionForClassroom;
+            (temp[9].location).inputInformation(questionForClassroom);
         }
      }
      //mothercheck(temp);
@@ -486,17 +528,17 @@ void specify(course temp[4] /*, classroom help[4]*/)
 
 course week[7][4];
 
-void sortDay(course temp[4])
+void sortDay(course temp[10])
 {
-    course saturday[4];
+    /*course saturday[4];
     course sunday[4];
     course monday[4];
     course tuesday[4];
     course wednesday[4];
     course thurday[4];
-    course friday[4];
+    course friday[4];*/
     int j{0};int z{0};int w{0};int k{0};int y{0};int m{0};int n{0};
-    for(int i =0; i<4; i++){
+    for(int i =0; i<10; i++){
         if(temp[i].courseTime.day1 == "saturday" || temp[i].courseTime.day2 == "saturday")
         {
           //  for(int j=0; j<4; j++)
@@ -569,10 +611,10 @@ course stackForTeacher[4];
 course stackForIdCourse[4];
 course stackForStudent[40];*/
 
-void mothercheck(course temp[4])
+void mothercheck(course temp[10])
 {
 
-    for (int i = 0; i < 4; ++i)
+    for (int i = 0; i < 10; ++i)
     {
         if (temp[i].capacity > temp[i].location.capacity)
         {
@@ -638,11 +680,29 @@ int main()
     }
     cout<<endl;
     */
-    course advp;
+    course advanceprogramming;
     course math; 
-    course  physics; 
-    course workshop; 
-    course courses[4] = {advp , math , physics , workshop};
+    course physics; 
+    course workshop;
+    course differntial;
+    course statistics; 
+    course history; 
+    course datastructure;
+    course logicalcircuit;
+    course  discretemath;
+    course courses[10] = {advanceprogramming , math , physics , workshop , differntial , statistics , history , datastructure , logicalcircuit , discretemath};
+    courses[0].inputInformation("AP101");
+    courses[1].inputInformation("MH101");
+    courses[2].inputInformation("PH101");
+    courses[3].inputInformation("WH101");
+    courses[4].inputInformation("DH101");
+    courses[5].inputInformation("SH101");
+    courses[6].inputInformation("HH101");
+    courses[7].inputInformation("DSH101");
+    courses[8].inputInformation("LCH101");
+    courses[9].inputInformation("DMH101");
+
+    
     //specify(courses);
 
     /*classroom a;
@@ -660,16 +720,28 @@ int main()
     array<int , 2>myarr = calcuteTime(math.courseTime);
     for(int i =0; i<2; i++)
         cout<<myarr[i]<<'\t';*/
-        specify(courses);
-        sortDay(courses);
-        weekShow();
+        //specify(courses);
+
+        //courses[5].inputInformation("HH101");
+        //weekShow();
 
     cout<<"------------------------------------------------------------------------\ntesting for show :\n";
     course AdvanceProgramming;
     classroom a101;
     //inputCourse(AdvanceProgramming , "MH101");
-    AdvanceProgramming.inputInformation("AP101");
+    AdvanceProgramming.inputInformation("HH101");
     AdvanceProgramming.show();
+    cout<<endl<<"------------TESTING SATURDAY-------------------------"<<endl;
+
+    //courses[5].inputInformation("HH101");
+    sortDay(courses);
+    for (int i = 0; i<4; i++)
+    {
+        
+        week[1][i].show();
+        cout<<endl;
+    }
+    
 
 
    return 0;
