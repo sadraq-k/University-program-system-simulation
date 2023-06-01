@@ -40,12 +40,12 @@ private:
     /*int day;
     int month;
     int year;*/
-    int hourStart;
-    int minStart;
-    int hourEnd;
-    int minEnd;
-    int durationMin;
-    int durationHour;
+    int hourStart=0;
+    int minStart=0;
+    int hourEnd=0;
+    int minEnd=0;
+    int durationMin=0;
+    int durationHour=0;
     string day1;
     string day2;
 public:
