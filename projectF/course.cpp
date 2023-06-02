@@ -145,7 +145,6 @@ auto calcuteTime(date object)
 //class classroom : etalaat kelas
 class classroom{
     friend void mothercheck(course temp[4]);
-    //friend void specify(course temp[4] , classroom help[3]);
    // friend void check();
    // friend void inputClassroom(classroom& temp ,string help);
 private:
@@ -217,13 +216,11 @@ public:
 
 //class course: etelaat dars
 class course{
-
-    friend void weekshow();
     //friend course great(course a , course b);
+    friend void weekShow(); 
     friend void sortDay(course temp[4]);
     friend void mothercheck(course temp[4]);
     friend bool checkTime(course , course);
-    void autoSortLocationForCourses(course temp[4]);
 
     //friend void inputCourse(course&temp , string help);
 private:
@@ -240,8 +237,7 @@ private:
 public:
     classroom location; 
     date courseTime;
-    void show()
-    {
+    void show(){
         cout<<boolalpha;
         cout<<"idcourse:"<<idCourse<<endl<<"name:"<<name<<endl<<"teacher name:"<<teachername<<endl<<"videoprojector:"<<videoprojector[0]<<endl<<"temperary:"<<temprary<<endl<<"capacity course:"<<capacityCourse[0]<<endl;
         cout<<"student list : ";
@@ -259,8 +255,7 @@ public:
 
     fstream coursetemp;
     coursetemp.open("proj.txt" , ios::in);
-    if(coursetemp.fail())
-    {
+    if(coursetemp.fail()){
         cout<<"fail\the file has a problem"<<endl;
     }
 
@@ -301,10 +296,12 @@ public:
             if(i == j+6){
                 const char* x = auxiliary.c_str();
                 courseTime.set_HS(atoi(x));
+               
             }
             if(i == j+7){
                 const char* x = auxiliary.c_str();
                 courseTime.set_MS(atoi(x));
+               
             }
             if(i == j+8){
                 const char* x = auxiliary.c_str();
@@ -320,18 +317,30 @@ public:
                 string d2;
                 istringstream helping(auxiliary);
                 helping>>d1;
-                coursetemp.ignore(1,' ');
+                //coursetemp.ignore(1,' ');
                 helping>>d2;
                 courseTime.set_Day(d1 , d2);
-
+                //cout<<courseTime.ret_day1()<<endl;
+                //cout<<courseTime.ret_day2()<<endl;
+                
+                
+				
+				
             }
+            
 
             if(i == j+11){
+                //cout<<auxiliary<<endl;
                 istringstream helping(auxiliary);
+                //cout<<auxiliary<<endl;
                 for(int k=0; k<capacityCourse[0] ;k++){
                     helping>>studentList[k];
-                    coursetemp.ignore(1,' ');
+                    //cout<<studentList[k]<<endl;
+                    //coursetemp.ignore(1,' ');
+                   // cout<<studentList[k]<<"\t";
                 }
+                cout<<endl;
+                //cout<<auxiliary<<endl;
 
             }
 
@@ -339,8 +348,6 @@ public:
 
     }
     coursetemp.close();
-
-
     
 
 }
@@ -391,39 +398,31 @@ course max(course a , course b){
 
 
 //hanooz kamel nashode vali baraye moshakhas kardan mahal ya hamoon kelase
-void specify(course temp[4] , classroom help[3])
+void specify(course temp[4] /*, classroom help[4]*/)
 {
 
-    temp[0].inputCourse("AP101");
-    temp[1].inputCourse("MH101");
-    temp[2].inputCourse("PH101");
-    temp[3].inputCourse("HH101");
-    
-    help[0].inputClassroom("401");
+   /* help[0].inputClassroom("401");
     help[1].inputClassroom("402");
-    help[2].inputClassroom("501");
+    help[2].inputClassroom("501");*/
     
-
-
+   /* course AdvanceProgramming;
+    course Math;
+    course physics;
+    course workshop*/
     bool check;
     cout<<"you want to determine the location of each course yourself (enter 1)| the program specifies the location of each course (enter 0) "<<endl; 
     cin>>check; 
     if(check){
-     for(int i{0}; i<4; i++)
-     {
+     for(int i{0}; i<4; i++){
         string questionForCourse;
-        string questionForClassroom;
-
+        string questionForClassroom; 
         cout<<"to determine the classroom , enter the desired course : ";
         //getline(cin , questionForCourse);
-
         cin>>questionForCourse;
         if(questionForCourse == "AdvanceProgramming")
         {
             //AdvanceProgramming.inputCourse("AP101");
-            //temp[0].inputCourse("AP101");
-
-
+            temp[0].inputCourse("AP101");
             cout<<"enter the desired classroom for the Advance Programming course : ";
             //getline(cin , questionForClassroom);
             cin>>questionForClassroom;
@@ -434,7 +433,7 @@ void specify(course temp[4] , classroom help[3])
         if(questionForCourse == "Math")
         {
            // Math.inputCourse("MH101");
-            //temp[1].inputCourse("MH101");
+            temp[1].inputCourse("MH101");
             cout<<"enter the desired classroom for the Math course : ";
             //getline(cin , questionForClassroom);
             cin>>questionForClassroom;
@@ -445,7 +444,7 @@ void specify(course temp[4] , classroom help[3])
          if(questionForCourse == "Physics")
          {
             //Physics.inputCourse("PH101");
-            //temp[2].inputCourse("PH101");
+            temp[2].inputCourse("PH101");
             cout<<"enter the desired classroom for the Phycsics course : ";
             //getline(cin , questionForClassroom);
             cin>>questionForClassroom;
@@ -456,7 +455,7 @@ void specify(course temp[4] , classroom help[3])
          if(questionForCourse == "Workshop")
          {
             //workshop.inputCourse("WH101");
-            //temp[3].inputCourse("HH101");
+            temp[3].inputCourse("HH101");
             cout<<"enter the desired classroom for the Workshop course : ";
             //getline(cin , questionForClassroom);
             cin>>questionForClassroom;
@@ -464,13 +463,8 @@ void specify(course temp[4] , classroom help[3])
             (temp[3].location).inputClassroom(questionForClassroom);    
         }
      }
-    // mothercheck(temp);
+     //mothercheck(temp);
     }
-
-   // else
-   //     autoSortLocationForCourses(temp);
-
-
 
 
 }
@@ -487,110 +481,71 @@ void sortDay(course temp[4])
     course thurday[4];
     course friday[4];
     int j{0};int z{0};int w{0};int k{0};int y{0};int m{0};int n{0};
-    for(int i =0; i<4; i++)
-    {
+    for(int i =0; i<4; i++){
         if(temp[i].courseTime.day1 == "saturday" || temp[i].courseTime.day2 == "saturday")
         {
           //  for(int j=0; j<4; j++)
-             saturday[j] = temp[i];
+             week[0][j] = temp[i];
              j++;
         }
-      //  week[0][3]=saturday[4];
+        //week[0][4]=saturday[4];
         if(temp[i].courseTime.day1 == "sunday" || temp[i].courseTime.day2 == "sunday")
         {
             //for(int j=0; j<4; j++)
-                 sunday[z] = temp[i];
+                 week[1][z] = temp[i];
                  z++;
         }
-        // week[1][3]= sunday[4];
+        //week[1][4]= sunday[4];
         if(temp[i].courseTime.day1 == "monday" || temp[i].courseTime.day2 == "monday")
         {
            // for(int j=0; j<4; j++)
-                 monday[w] = temp[i];
+                 week[2][w] = temp[i];
                  w++;
         }
-       week[2][3]=monday[4];
+        //week[2][4]=monday[4];
         if(temp[i].courseTime.day1 == "tuesday" || temp[i].courseTime.day2 == "tuesday")
         {
             //for(int j=0; j<4; j++)
-                 tuesday[k] = temp[i];
+                 week[3][k] = temp[i];
                  k++;
         }
-       // week[3][3]=tuesday[4];
+        //week[3][4]=tuesday[4];
         if(temp[i].courseTime.day1 == "wednesday" || temp[i].courseTime.day2 == "wednesday")
         {
            // for(int j=0; j<4; j++)
-                 wednesday[y] = temp[i];
+                 week[4][y] = temp[i];
                  y++;
         }
-      //  week[4][3]=wednesday[4];
+        //week[4][4]=wednesday[4];
         if(temp[i].courseTime.day1 == "thurday" || temp[i].courseTime.day2 == "thurday")
         {
            // for(int j=0; j<4; j++)
-                 thurday[m] = temp[i];
+                 week[5][m] = temp[i];
                  m++;
         }
-       // week[5][3]=thurday[4];
+        //week[5][4]=thurday[4];
         if(temp[i].courseTime.day1 == "friday" || temp[i].courseTime.day2 == "friday")
         {
            // for(int j=0; j<4; j++)
-                 friday[n] = temp[i];
+                 week[6][n] = temp[i];
                  n++;
         }
-       // week[6][3]=friday[4];
+        //week[6][4]=friday[4];
+    
     }
-    for (int i = 0; i < 4; ++i)
-    {
-         week[0][i] = saturday[i];
-    }
-
-    for (int i = 0; i < 4; ++i)
-    {
-        week[1][i] = sunday[i];
-    }
-
-    for (int i = 0; i < 4; ++i)
-    {
-        week[2][i] = monday[i];
-    }
-
-    for (int i = 0; i < 4; ++i)
-    {
-        week[3][i] = tuesday[i];
-    }
-
-    for (int i = 0; i < 4; ++i)
-    {
-        week[4][i] = wednesday[i];
-    }
-
-    for (int i = 0; i < 4; ++i)
-    {
-        week[5][i] = thurday[i];
-    }
-
-    for (int i = 0; i < 4; ++i)
-    {
-        week[6][i] = friday[i];
-    }
-
-
 }
-
-void weekshow()
-{
-
-    for (int i = 0; i < 7; ++i)
-    {
-        for (int j = 0; j < 4; ++j)
-        {
-            cout<<week[i][j].name<<endl<<'\t'<<week[i][j].teachername<<'\t'<<week[i][j].videoprojector[0]<<'\t'<<week[i][j].temprary
-            <<'\t'<<week[i][j].capacityCourse[0]<<'\t'<<week[i][j].courseTime.st<<" , "<<week[i][j].courseTime.et;
-
+void weekShow(){
+    cout<<boolalpha;
+    for(int i{0};i<7;i++ ){
+        for(int j{0} ; j<4; j++){
+            week[i][j].courseTime.calcuteTime();
+            cout<<endl<<week[i][j].name<<endl<<week[i][j].teachername<<'\t'<<week[i][j].videoprojector[0]<<'\t'<<week[i][j].temprary<<'\t'<<week[i][j].capacityCourse[0]<<'\t'<<week[i][j].courseTime.st<<','<<week[i][j].courseTime.et<<'\t'<<endl;
         }
-        cout<<endl<<endl;
+        cout<<"------------------------------------------------------------------------------------------------"<<endl<<endl;
     }
 }
+
+
 //template <typename T>
 
 
@@ -599,130 +554,111 @@ course stackForTeacher[4];
 course stackForIdCourse[4];
 course stackForStudent[40];*/
 
+void mothercheck(course temp[4]) {
 
-void mothercheck(course temp[4])
-{
+    for (int i = 0; i < 4; ++i) {
+        if (temp[i].capacityCourse[0] > temp[i].location.capacityClass) {
+            cout << "The capacity of " << temp[i].name << " is greater than the capacity of the location" << endl;
 
-    for (int i = 0; i < 4; ++i)
-    {
-        if (temp[i].capacityCourse[0]>temp[i].location.capacityClass)
-        {
-            cout<<"The capacity of "<<temp[i].name<<" is greater than the capacity of the location"<<endl;
-            
-            temp[i].capacityCourse[1]=1;
+            temp[i].capacityCourse[1] = 1;
 
         }
-        if ( (temp[i].videoprojector[0]) && (!temp[i].location.videoprojector))
-        {
-            cout<<temp[i].name<<" needs a video projector and location have not a video projector "<<endl;
-            temp[i].videoprojector[1]=1;
+        if ((temp[i].videoprojector[0]) && (!temp[i].location.videoprojector)) {
+            cout << temp[i].name << " needs a video projector and location have not a video projector " << endl;
+            temp[i].videoprojector[1] = 1;
         }
-       int j{0};
+        int j{0};
 
-        for(int j=0 ; j < 4 ; j++)
-        {
-            for (int k = j+1; k < 4 ; k++)
-            {
-               
-                if( (week[i][j].location.idClass == week[i][k].location.idClass) && (week[i][j].name != week[i][k].name) && (checkTime(week[i][j], week[j][k])) )
-                    cout<<week[i][j].name<<" and "<<week[i][k].name<<" have time overlap on "<<i<<"of the week "<<endl;
-            
+        for (int j = 0; j < 4; j++) {
+            for (int k = j + 1; k < 4; k++) {
 
-                if( (week[i][j].teachername == week[j][k].teachername) && (week[i][j].name != week[i][k].name) && (checkTime(week[i][j], week[j][k])) )
-                    cout<<week[i][j].name<<" and "<<week[i][k].name<<" have time teacher interfrence on "<<i<<"of the week "<<endl;
-<<<<<<< HEAD
-                
-            
-                if((week[i][j].idCourse == week[i][k].idCourse) && (temp[i].name != week[j][k].name))
-                {
-                    cout<<"The id of "<<week[i][j].name<<" is the same as "<<week[i][k].name<<endl;
-                   
+                if ((week[i][j].location.idClass == week[i][k].location.idClass) &&
+                    (week[i][j].name != week[i][k].name) && (checkTime(week[i][j], week[j][k])))
+                    cout << week[i][j].name << " and " << week[i][k].name << " have time overlap on " << i
+                         << "of the week " << endl;
+
+
+                if ((week[i][j].teachername == week[j][k].teachername) && (week[i][j].name != week[i][k].name) &&
+                    (checkTime(week[i][j], week[j][k])))
+                    cout << week[i][j].name << " and " << week[i][k].name << " have time teacher interfrence on " << i
+                         << "of the week " << endl;
+
+
+                if ((week[i][j].idCourse == week[i][k].idCourse) && (temp[i].name != week[j][k].name)) {
+                    cout << "The id of " << week[i][j].name << " is the same as " << week[i][k].name << endl;
+
                 }
 
-                
-                for(int z{0} ; z<(week[i][j].capacityCourse[0]); z++)
-                {
 
-                    for(int q{0};q<(week[i][k].capacityCourse[0]);q++)
-                    {
+                for (int z{0}; z < (week[i][j].capacityCourse[0]); z++) {
 
-                        if((week[i][j].studentList[z] == week[i][k].studentList[q]) && (temp[i].name != week[j][k].name) && (checkTime(week[i][j] , week[j][k])))
-                            cout<<"student number"<<week[i][j].studentList[z]<<"is present in both "<<week[i][j].name<<" and "<<week[i][k].name<<" courses and there is a time overlap"<<endl;
+                    for (int q{0}; q < (week[i][k].capacityCourse[0]); q++) {
 
-=======
-                //if((temp[i].teachername == week[j][k].teachername) && (temp[i].name != week[j][k].name)){
-                   // stackForTeacher[t] = checkTime(temp[i] , week[j][k]);
-                   // t++;
-                //}
-            
-                if((week[i][j].idCourse == week[i][k].idCourse) && (temp[i].name != week[j][k].name)){
-                    cout<<"The id of "<<week[i][j].name<<" is the same as "<<week[i][k].name<<endl;
-                   // stackForIdCourse[r] = temp[i];
-                    //r++;
-                }
->>>>>>> parent of be6ed48 (Completion of the check function (adding students check))
-                /*int h=0;
-                for(int z{0} ; z<(week[j][k].capacityCourse); z++){
-                    for(int q{0};q<(week[j][k].capacityCourse);q++){
-                        if((temp[i].studentList[z] == week[j][k].studentList[q]) && (temp[i].name != week[j][k].name)){
-<<<<<<< HEAD
->>>>>>> parent of be6ed48 (Completion of the check function (adding students check))
-=======
->>>>>>> parent of be6ed48 (Completion of the check function (adding students check))
-                        
+                        if ((week[i][j].studentList[z] == week[i][k].studentList[q]) &&
+                            (temp[i].name != week[j][k].name) && (checkTime(week[i][j], week[j][k])))
+                            cout << "student number" << week[i][j].studentList[z] << "is present in both "
+                                 << week[i][j].name << " and " << week[i][k].name
+                                 << " courses and there is a time overlap" << endl;
+                        //if((temp[i].teachername == week[j][k].teachername) && (temp[i].name != week[j][k].name)){
+                        // stackForTeacher[t] = checkTime(temp[i] , week[j][k]);
+                        // t++;
+                        //}
+
+                        if ((week[i][j].idCourse == week[i][k].idCourse) && (temp[i].name != week[j][k].name)) {
+                            cout << "The id of " << week[i][j].name << " is the same as " << week[i][k].name << endl;
+                            // stackForIdCourse[r] = temp[i];
+                            //r++;
                         }
+
+                        /*int h=0;
+                        for(int z{0} ; z<(week[j][k].capacityCourse); z++){
+                            for(int q{0};q<(week[j][k].capacityCourse);q++){
+                                if((temp[i].studentList[z] == week[j][k].studentList[q]) && (temp[i].name != week[j][k].name)){
+        <<<<<<< HEAD
+        >>>>>>> parent of be6ed48 (Completion of the check function (adding students check))
+        =======
+        >>>>>>> parent of be6ed48 (Completion of the check function (adding students check))
+
+                                }
+                            }
+                        }*/
+
+
+
                     }
-                }*/
-                
-
-
+                }
             }
         }
     }
 }
-
-
-
-void autoSortLocationForCourses(course temp[4])
-{
-
-}
-
-
 /*( !( (temp[i].courseTime.st>saturday[j].courseTime.st)&&(temp[i].courseTime.et>saturday[j].courseTime.et)&&(temp[i].courseTime.st>saturday[j].courseTime.et) ) ||
 !( (temp[i].courseTime.st < saturday[j].courseTime.st)&&(temp[i].courseTime.et < saturday[j].courseTime.et)&&(temp[i].courseTime.et < saturday[j].courseTime.st) )  )*/
 
+        int main() {
+            cout << "run program :" << endl;
+
+            /* date temp(8,2,1401,8,30,1,30);
+             array<int , 2>myarr{calcuteTime(temp)};
+             for(int i=0 ; i<2; i++){
+                 cout<<myarr[i]<<":";
 
 
+             }
+             cout<<endl;
+             */
+            course advp;
+            course math;
+            course physics;
+            course workshop;
+            course courses[4] = {advp, math, physics, workshop};
+            //specify(courses);
 
+            /*classroom a;
+            classroom b;
+            classroom c;
+            classroom locations[3] = {a,b,c};*/
 
-int main()
-{
-    cout<<"run program :"<<endl;
-
-   /* date temp(8,2,1401,8,30,1,30);
-    array<int , 2>myarr{calcuteTime(temp)};
-    for(int i=0 ; i<2; i++){
-        cout<<myarr[i]<<":";
-
-
-    }
-    cout<<endl;
-    */
-    course advp;
-    course math; 
-    course  physics; 
-    course workshop; 
-    course courses[4] = {advp , math , physics , workshop};
-    classroom a;
-    classroom b;
-    classroom c;
-    classroom locations[3] = {a,b,c};
-
-
-    specify(courses , locations);
-
-
+            //specify(courses , locations);
 /*
     course math;
     math.courseTime.set_DH(1);
@@ -732,19 +668,17 @@ int main()
     array<int , 2>myarr = calcuteTime(math.courseTime);
     for(int i =0; i<2; i++)
         cout<<myarr[i]<<'\t';*/
-    cout<<"------------------------------------------------------------------------\ntesting for show :\n";
-    course AdvanceProgramming;
-    classroom a101;
-    //inputCourse(AdvanceProgramming , "MH101");
-    AdvanceProgramming.inputCourse("AP101");
-    AdvanceProgramming.show();
+            specify(courses);
+            sortDay(courses);
+            weekShow();
 
-    weekshow();
-
-
-   return 0;
-    
-    }
+            cout << "------------------------------------------------------------------------\ntesting for show :\n";
+            course AdvanceProgramming;
+            classroom a101;
+            //inputCourse(AdvanceProgramming , "MH101");
+            AdvanceProgramming.inputCourse("PH101");
+            AdvanceProgramming.show();
 
 
-
+            return 0;
+}
