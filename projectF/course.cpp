@@ -8,7 +8,7 @@
 #include<sstream>
 
 class course;
-class classroom;
+class courseLocation;
 class date;
 
 using namespace std;
@@ -36,6 +36,7 @@ class date{
    // friend auto calcuteTime(date object);
     friend void sortDay(course temp[4]);
     friend bool checkTime(course temp , course dayOfWeek);
+   // friend bool checkTime(course temp , courseLocation dayOfWeek);
 private:
     /*int day;
     int month;
@@ -141,6 +142,7 @@ auto calcuteTime(date object)
 }
 */
 class commonInformartion{
+  friend  void automaticLocationDetermination(courseLocation rooms[3]);
 protected:
     string id;
     int capacity;
@@ -148,17 +150,20 @@ protected:
 
 public:
     virtual void inputInformation(string help) = 0;    
-
+    date DTime;
 };
 
 
 
 //class classroom : etalaat kelas
-class classroom : public commonInformartion{
-    friend void mothercheck(course temp[4]);
+class courseLocation : public commonInformartion{
+    friend void mothercheck(course temp[10]);
+    friend void automaticLocationDetermination(courseLocation rooms[3]);
    // friend void check();
    // friend void inputClassroom(classroom& temp ,string help);
 private:
+
+    bool occupied = 0;
     /*string idClass;
     int capacityClass;
     bool videoprojector;*/
@@ -167,7 +172,7 @@ private:
 
 
 public:
-
+    
 
     void show(){
         cout<<boolalpha;
@@ -224,14 +229,16 @@ public:
 };
 
 
-
+//template<typename N , typename B>
 //class course: etelaat dars
 class course: public commonInformartion{
     //friend course great(course a , course b);
+    
     friend void weekShow(); 
-    friend void sortDay(course temp[4]);
-    friend void mothercheck(course temp[4]);
+    friend void sortDay(course temp[10]);
+    friend void mothercheck(course temp[10]);
     friend bool checkTime(course , course);
+    friend void automaticLocationDetermination(courseLocation rooms[3]);
 
     //friend void inputCourse(course&temp , string help);
 private:
@@ -246,8 +253,8 @@ private:
     //int* studentList{new int[capacity]};
 
 public:
-    classroom location; 
-    date courseTime;
+    courseLocation location; 
+    //date DTime;
     void show(){
         cout<<boolalpha;
         cout<<"idcourse:"<<id<<endl<<"name:"<<name<<endl<<"teacher name:"<<teachername<<endl<<"videoprojector:"<<videoprojector<<endl<<"temperary:"<<temprary<<endl<<"capacity course:"<<capacity<<endl;
@@ -307,21 +314,21 @@ public:
             
             if(i == j+6){
                 const char* x = auxiliary.c_str();
-                courseTime.set_HS(atoi(x));
+                DTime.set_HS(atoi(x));
                
             }
             if(i == j+7){
                 const char* x = auxiliary.c_str();
-                courseTime.set_MS(atoi(x));
+                DTime.set_MS(atoi(x));
                
             }
             if(i == j+8){
                 const char* x = auxiliary.c_str();
-                courseTime.set_DH(atoi(x)); 
+                DTime.set_DH(atoi(x)); 
             }
             if(i == j+9){
                 const char* x = auxiliary.c_str();
-                courseTime.set_DM(atoi(x));
+                DTime.set_DM(atoi(x));
             }
             if(i == j+10){
                 //courseTime.set_Day(auxiliary);
@@ -331,7 +338,7 @@ public:
                 helping>>d1;
                 //coursetemp.ignore(1,' ');
                 helping>>d2;
-                courseTime.set_Day(d1 , d2);
+                DTime.set_Day(d1 , d2);
                 //cout<<courseTime.ret_day1()<<endl;
                 //cout<<courseTime.ret_day2()<<endl;
                 
@@ -367,6 +374,11 @@ public:
 
 }
 
+void operator=(courseLocation temp){
+   temp.DTime.et = DTime.et;
+   temp.DTime.st = DTime.st;
+}
+
 };
 
 
@@ -378,38 +390,43 @@ T stringToInteger(string str){
         throw "Can not convert";
 
     return result;}*/
-course min(course a , course b){
+//template<typename F , typename G , typename L>    
+/*course min(course a , course b){
 
-    if(a.courseTime.st<b.courseTime.st)
+    if(a.DTime.st<b.DTime.st)
         return a;
     else
         return b;
 }
-
+//template<typename M , typename W , typename K>
 course max(course a , course b){
 
-    if(a.courseTime.st>b.courseTime.st)
+    if(a.DTime.st>b.DTime.st)
         return a;
     else
         return b;
 }
-
+//template<typename Z , typename H >
  bool checkTime(course temp , course dayOfWeek){
         course A = min(temp , dayOfWeek);
         course B = max(temp , dayOfWeek);
-        if (!(A.courseTime.st < B.courseTime.st && A.courseTime.et < B.courseTime.et && A.courseTime.et < B.courseTime.st))
+        if (!(A.DTime.st < B.DTime.st && A.DTime.et < B.DTime.et && A.DTime.et < B.DTime.st))
             {
-                /*if(A.courseTime.st == temp.courseTime.st)
-                    return A;
-
-                if(B.courseTime.st == temp.courseTime.st)
-                    return B;*/
+                
                 return 1;
             }
         else
             return 0;    
 
-    }
+    }*/
+bool checkTime(course temp , course dayOfWeek){
+    if((dayOfWeek.DTime.st<=temp.DTime.st<=dayOfWeek.DTime.et)||(dayOfWeek.DTime.st<=temp.DTime.et<=dayOfWeek.DTime.et))
+        return 1;
+    else 
+        return 0;    
+}
+
+
 
 
 //hanooz kamel nashode vali baraye moshakhas kardan mahal ya hamoon kelase
@@ -539,49 +556,49 @@ void sortDay(course temp[10])
     course friday[4];*/
     int j{0};int z{0};int w{0};int k{0};int y{0};int m{0};int n{0};
     for(int i =0; i<10; i++){
-        if(temp[i].courseTime.day1 == "saturday" || temp[i].courseTime.day2 == "saturday")
+        if(temp[i].DTime.day1 == "saturday" || temp[i].DTime.day2 == "saturday")
         {
           //  for(int j=0; j<4; j++)
              week[0][j] = temp[i];
              j++;
         }
         //week[0][4]=saturday[4];
-        if(temp[i].courseTime.day1 == "sunday" || temp[i].courseTime.day2 == "sunday")
+        if(temp[i].DTime.day1 == "sunday" || temp[i].DTime.day2 == "sunday")
         {
             //for(int j=0; j<4; j++)
                  week[1][z] = temp[i];
                  z++;
         }
         //week[1][4]= sunday[4];
-        if(temp[i].courseTime.day1 == "monday" || temp[i].courseTime.day2 == "monday")
+        if(temp[i].DTime.day1 == "monday" || temp[i].DTime.day2 == "monday")
         {
            // for(int j=0; j<4; j++)
                  week[2][w] = temp[i];
                  w++;
         }
         //week[2][4]=monday[4];
-        if(temp[i].courseTime.day1 == "tuesday" || temp[i].courseTime.day2 == "tuesday")
+        if(temp[i].DTime.day1 == "tuesday" || temp[i].DTime.day2 == "tuesday")
         {
             //for(int j=0; j<4; j++)
                  week[3][k] = temp[i];
                  k++;
         }
         //week[3][4]=tuesday[4];
-        if(temp[i].courseTime.day1 == "wednesday" || temp[i].courseTime.day2 == "wednesday")
+        if(temp[i].DTime.day1 == "wednesday" || temp[i].DTime.day2 == "wednesday")
         {
            // for(int j=0; j<4; j++)
                  week[4][y] = temp[i];
                  y++;
         }
         //week[4][4]=wednesday[4];
-        if(temp[i].courseTime.day1 == "thurday" || temp[i].courseTime.day2 == "thurday")
+        if(temp[i].DTime.day1 == "thurday" || temp[i].DTime.day2 == "thurday")
         {
            // for(int j=0; j<4; j++)
                  week[5][m] = temp[i];
                  m++;
         }
         //week[5][4]=thurday[4];
-        if(temp[i].courseTime.day1 == "friday" || temp[i].courseTime.day2 == "friday")
+        if(temp[i].DTime.day1 == "friday" || temp[i].DTime.day2 == "friday")
         {
            // for(int j=0; j<4; j++)
                  week[6][n] = temp[i];
@@ -595,8 +612,8 @@ void weekShow(){
     cout<<boolalpha;
     for(int i{0};i<7;i++ ){
         for(int j{0} ; j<4; j++){
-            week[i][j].courseTime.calcuteTime();
-            cout<<endl<<week[i][j].name<<endl<<week[i][j].teachername<<'\t'<<week[i][j].videoprojector<<'\t'<<week[i][j].temprary<<'\t'<<week[i][j].capacity<<'\t'<<week[i][j].courseTime.st<<','<<week[i][j].courseTime.et<<'\t'<<endl;
+            week[i][j].DTime.calcuteTime();
+            cout<<endl<<week[i][j].name<<endl<<week[i][j].teachername<<'\t'<<week[i][j].videoprojector<<'\t'<<week[i][j].temprary<<'\t'<<week[i][j].capacity<<'\t'<<week[i][j].DTime.st<<','<<week[i][j].DTime.et<<'\t'<<endl;
         }
         cout<<"------------------------------------------------------------------------------------------------"<<endl<<endl;
     }
@@ -667,6 +684,62 @@ void mothercheck(course temp[10])
 /*( !( (temp[i].courseTime.st>saturday[j].courseTime.st)&&(temp[i].courseTime.et>saturday[j].courseTime.et)&&(temp[i].courseTime.st>saturday[j].courseTime.et) ) ||
 !( (temp[i].courseTime.st < saturday[j].courseTime.st)&&(temp[i].courseTime.et < saturday[j].courseTime.et)&&(temp[i].courseTime.et < saturday[j].courseTime.st) )  )*/
 
+/*auto maximum(course temp , courseLocation help ){
+    if (temp.DTime.st<help.DTime.st)
+        return help;
+    else 
+        return temp;    
+}
+
+auto minimum(course temp , courseLocation help){
+    if(temp.DTime.st<help.DTime.st)
+        return temp;
+    else 
+        return help;    
+}*/
+
+
+
+bool chekingTime(course temp , courseLocation help){
+    if((help.DTime.st<=temp.DTime.st<=help.DTime.et) || (help.DTime.st<=temp.DTime.et<=help.DTime.et))
+        return 1;
+    else 
+        return 0;    
+}
+
+void automaticLocationDetermination(courseLocation rooms[3]){
+    for (int i = 0; i <7 ; i++)
+    {
+        for (int j = 0; j <4 ; j++)
+        {
+            for (int z = 0; z < 3; z++)
+            {
+               if((week[i][j].capacity < rooms[z].capacity)&&(week[i][j].videoprojector == rooms[z].videoprojector) ){
+                    if((rooms[z].occupied = 0) && (chekingTime(week[i][j] , rooms[z])) ){
+                        rooms[z].occupied = 1;
+                        rooms[z].DTime = week[i][j].DTime;
+                        week[i][j].location.id = rooms[z].id;
+                    }
+               }
+            }
+
+            for(int h =0; h<3; h++){
+                rooms[h].occupied = 0;
+                rooms[h].DTime.st = 0;
+                rooms[h].DTime.et = 0;
+            } 
+
+        }
+
+    }
+    
+} 
+
+
+
+
+
+
 int main()
 {
     cout<<"run program :"<<endl;
@@ -705,10 +778,13 @@ int main()
     
     //specify(courses);
 
-    /*classroom a;
-    classroom b;
-    classroom c;
-    classroom locations[3] = {a,b,c};*/
+    courseLocation a;
+    courseLocation b;
+    courseLocation c;
+    courseLocation locations[3] = {a,b,c};
+    locations[0].inputInformation("401");
+    locations[1].inputInformation("402");
+    locations[2].inputInformation("501");
     
     //specify(courses , locations);
 /*
@@ -727,7 +803,7 @@ int main()
 
     cout<<"------------------------------------------------------------------------\ntesting for show :\n";
     course AdvanceProgramming;
-    classroom a101;
+    courseLocation a101;
     //inputCourse(AdvanceProgramming , "MH101");
     AdvanceProgramming.inputInformation("HH101");
     AdvanceProgramming.show();
@@ -744,9 +820,9 @@ int main()
     
 
 
-   return 0;
+return 0;
     
-    }
+}
 
 
 
