@@ -420,7 +420,7 @@ course max(course a , course b){
 
     }*/
 bool checkTime(course temp , course dayOfWeek){
-    if((dayOfWeek.DTime.st<=temp.DTime.st<=dayOfWeek.DTime.et)||(dayOfWeek.DTime.st<=temp.DTime.et<=dayOfWeek.DTime.et))
+    if( ((dayOfWeek.DTime.st<temp.DTime.st<dayOfWeek.DTime.et)||(dayOfWeek.DTime.st<temp.DTime.et<dayOfWeek.DTime.et))||((temp.DTime.st<dayOfWeek.DTime.st<temp.DTime.et)||(temp.DTime.st<dayOfWeek.DTime.et<temp.DTime.et)) )
         return 1;
     else 
         return 0;    
@@ -701,7 +701,8 @@ auto minimum(course temp , courseLocation help){
 
 
 bool chekingTime(course temp , courseLocation help){
-    if((help.DTime.st<=temp.DTime.st<=help.DTime.et) || (help.DTime.st<=temp.DTime.et<=help.DTime.et))
+    if( ((help.DTime.st<temp.DTime.st<help.DTime.et)||(help.DTime.st<temp.DTime.et<help.DTime.et))||((temp.DTime.st<help.DTime.st<temp.DTime.et)||(temp.DTime.st<help.DTime.et<temp.DTime.et)) )
+
         return 1;
     else 
         return 0;    
