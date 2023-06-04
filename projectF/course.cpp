@@ -145,11 +145,7 @@ auto calcuteTime(date object)
 }
 */
 class commonInformartion{
-<<<<<<< HEAD
     friend void specify(course temp[10]);
-=======
-    friend specify(course temp[]);
->>>>>>> c5347ef5ce3118f5a11ffd1742a29ba16f5e5f07
     friend void babycheck();
     friend  void automaticLocationDetermination(courseLocation rooms[3]);
 protected:
@@ -296,38 +292,10 @@ public:
                 break;
         }
 
-<<<<<<< HEAD
         coursetemp.close();
 
         coursetemp.open("proj.txt" , ios::in);
 
-=======
-    void inputInformation(string help){
-
-        /*char auxiliary[80];
-        char assist[80];*/
-        string auxiliary;
-        string assist;
-
-        fstream coursetemp;
-        coursetemp.open("proj.txt" , ios::in);
-        if(coursetemp.fail()){
-            cout<<"fail\the file has a problem"<<endl;
-        }
-
-        int j;
-        for(j = 1;!coursetemp.eof();j++)
-        {
-            getline(coursetemp,assist);
-            if(assist == help)
-                break;
-        }
-
-        coursetemp.close();
-
-        coursetemp.open("proj.txt" , ios::in);
-
->>>>>>> c5347ef5ce3118f5a11ffd1742a29ba16f5e5f07
         for(int i{1};!coursetemp.eof();i++){
 
 
@@ -458,28 +426,17 @@ course max(course a , course b){
 
     }**/
 bool checkTime(course temp , course dayOfWeek){
-<<<<<<< HEAD
     if( (( (dayOfWeek.DTime.st<temp.DTime.st) && (temp.DTime.st<dayOfWeek.DTime.et) )||( (dayOfWeek.DTime.st<temp.DTime.et) && (temp.DTime.et<dayOfWeek.DTime.et) ))||(( (temp.DTime.st<dayOfWeek.DTime.st) && (dayOfWeek.DTime.st<temp.DTime.et) )||( (temp.DTime.st<dayOfWeek.DTime.et) && (dayOfWeek.DTime.et<temp.DTime.et) )) ){
         return 1;}
     else{
         return 0;}
-=======
-    if( ((dayOfWeek.DTime.st<temp.DTime.st<dayOfWeek.DTime.et)||(dayOfWeek.DTime.st<temp.DTime.et<dayOfWeek.DTime.et))||((temp.DTime.st<dayOfWeek.DTime.st<temp.DTime.et)||(temp.DTime.st<dayOfWeek.DTime.et<temp.DTime.et)) )
-        return 1;
-    else
-        return 0;
->>>>>>> c5347ef5ce3118f5a11ffd1742a29ba16f5e5f07
 }
 
 
 
 
 //hanooz kamel nashode vali baraye moshakhas kardan mahal ya hamoon kelase
-<<<<<<< HEAD
 void specify(course temp[10] /*,courseLocation rooms[3]*/)
-=======
-void specify(course temp[10] ,courseLocation rooms[3])
->>>>>>> c5347ef5ce3118f5a11ffd1742a29ba16f5e5f07
 {
 
     /* help[0].inputClassroom("401");
@@ -490,28 +447,16 @@ void specify(course temp[10] ,courseLocation rooms[3])
      course Math;
      course physics;
      course workshop*/
-<<<<<<< HEAD
     //bool check;
     //cout<<"you want to determine the location of each course yourself (enter 1)| the program specifies the location of each course (enter 0) "<<endl;
     //cin>>check;
    // if(check)
     //{
-=======
-    bool check;
-    cout<<"you want to determine the location of each course yourself (enter 1)| the program specifies the location of each course (enter 0) "<<endl;
-    cin>>check;
-    if(check)
-    {
->>>>>>> c5347ef5ce3118f5a11ffd1742a29ba16f5e5f07
         for(int i{0}; i<10; i++)
         {
             string questionForCourse;
             string questionForClassroom;
-<<<<<<< HEAD
             cout<<i+1<<" : "<<"to determine the classroom , enter the desired course : ";
-=======
-            cout<<"to determine the classroom , enter the desired course : ";
->>>>>>> c5347ef5ce3118f5a11ffd1742a29ba16f5e5f07
             //getline(cin , questionForCourse);
             cin>>questionForCourse;
             if(questionForCourse == "AdvanceProgramming")
@@ -600,15 +545,9 @@ void specify(course temp[10] ,courseLocation rooms[3])
                 (temp[9].location).inputInformation(questionForClassroom);
             }
         }
-<<<<<<< HEAD
         //mothercheck(temp);
     //} //else
         //automaticLocationDetermination(rooms[3]);
-=======
-        mothercheck(temp);
-    } else
-        automaticLocationDetermination(rooms[3]);
->>>>>>> c5347ef5ce3118f5a11ffd1742a29ba16f5e5f07
 
 
 }
@@ -709,11 +648,7 @@ course stackForIdCourse[4];
 course stackForStudent[40];*/
 void babycheck()
 {
-<<<<<<< HEAD
     //int j{0};
-=======
-    int j{0};
->>>>>>> c5347ef5ce3118f5a11ffd1742a29ba16f5e5f07
     for (int i = 0; i < 7; ++i)
     {
         for(int j=0 ; j < 4 ; j++)
@@ -721,7 +656,6 @@ void babycheck()
             for (int k = j+1; k < 4 ; k++)
             {
 
-<<<<<<< HEAD
                 if( (week[i][j].location.id == week[i][k].location.id) && (week[i][j].name != week[i][k].name) && (checkTime(week[i][j] , week[j][k])) )
                     cout<<week[i][j].name<<" and "<<week[i][k].name<<" have time overlap on "<<i+1<<"of the week "<<endl;
 
@@ -734,33 +668,6 @@ void babycheck()
                     cout<<"The id of "<<week[i][j].name<<" is the same as "<<week[i][k].name<<endl;
 
                 }*/
-=======
-                if( (week[i][j].location.id == week[i][k].location.id) && (week[i][j].name != week[i][k].name) && (checkTime(week[i][j], week[j][k])) )
-                    cout<<week[i][j].name<<" and "<<week[i][k].name<<" have time overlap on "<<i<<"of the week "<<endl;
-
-
-                if( (week[i][j].teachername == week[j][k].teachername) && (week[i][j].name != week[i][k].name) && (checkTime(week[i][j], week[j][k])) )
-                    cout<<week[i][j].name<<" and "<<week[i][k].name<<" have time teacher interfrence on "<<i<<"of the week "<<endl;
-
-
-                if((week[i][j].id == week[i][k].id))
-                {
-                    cout<<"The id of "<<week[i][j].name<<" is the same as "<<week[i][k].name<<endl;
-
-                }
-
-                for(int z{0} ; z<(week[i][j].capacity); z++){
-
-                    for(int q{0};q<(week[i][k].capacity);q++){
-
-                        if((week[i][j].studentList[z] == week[i][k].studentList[q])  && (checkTime(week[i][j] , week[j][k])))
-                            cout<<"student number"<<week[i][j].studentList[z]<<"is present in both "<<week[i][j].name<<" and "<<week[i][k].name<<" courses and there is a time overlap"<<endl;
-
-                    }
-                }
-
-
->>>>>>> c5347ef5ce3118f5a11ffd1742a29ba16f5e5f07
 
             }
         }
@@ -783,12 +690,6 @@ void mothercheck(course temp[10])
         if ( (temp[i].videoprojector) && (!temp[i].location.videoprojector))
         {
             cout<<temp[i].name<<" needs a video projector and location have not a video projector "<<endl;
-<<<<<<< HEAD
-=======
-
-        }
-        int j{0};
->>>>>>> c5347ef5ce3118f5a11ffd1742a29ba16f5e5f07
 
         }
         for(int j=i+1; j<10-i; j++){
@@ -819,11 +720,7 @@ void mothercheck(course temp[10])
                     cout<<"The id of "<<week[i][j].name<<" is the same as "<<week[i][k].name<<endl;
 
                 }
-<<<<<<< HEAD
                 //check student
-=======
-
->>>>>>> c5347ef5ce3118f5a11ffd1742a29ba16f5e5f07
                 for(int z{0} ; z<(week[i][j].capacity); z++){
 
                     for(int q{0};q<(week[i][k].capacity);q++){
@@ -967,20 +864,9 @@ int main()
     for(int i =0; i<2; i++)
         cout<<myarr[i]<<'\t';*/
     //specify(courses);
-<<<<<<< HEAD
 
     //courses[5].inputInformation("HH101");
     //weekShow();
-=======
-
-    //courses[5].inputInformation("HH101");
-    //weekShow();
-
-    specify(courses ,locations );
-    sortDay(courses);
-    weekShow();
-
->>>>>>> c5347ef5ce3118f5a11ffd1742a29ba16f5e5f07
 
     //sortDay(courses);
     bool check;
@@ -1034,11 +920,7 @@ weekShow();*/
     for (int i = 0; i<4; i++)
     {
 
-<<<<<<< HEAD
         week[0][i].show();
-=======
-        week[1][i].show();
->>>>>>> c5347ef5ce3118f5a11ffd1742a29ba16f5e5f07
         cout<<endl;
     }
 
@@ -1046,8 +928,4 @@ weekShow();*/
 
     return 0;
 
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> c5347ef5ce3118f5a11ffd1742a29ba16f5e5f07
