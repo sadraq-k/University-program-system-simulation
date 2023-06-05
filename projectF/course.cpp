@@ -54,6 +54,7 @@ private:
     string day2;
 public:
     double st,et;
+    bool occupied = 0;
     /*date(int d = 1 , int m = 1 , int y = 1401 ,int hS = 0 , int mS = 0 , int duH = 0 , int duM = 0 ){
         day = d;
         month = m;
@@ -145,6 +146,7 @@ auto calcuteTime(date object)
 }
 */
 class commonInformartion{
+    friend int g(courseLocation room);
     friend void specify(course temp[10]);
     friend void babycheck();
     friend  void automaticLocationDetermination(courseLocation rooms[3]);
@@ -168,7 +170,7 @@ class courseLocation : public commonInformartion{
     // friend void inputClassroom(classroom& temp ,string help);
 private:
 
-    bool occupied = 0;
+    //bool occupied = 0;
     /*string idClass;
     int capacityClass;
     bool videoprojector;*/
@@ -181,7 +183,7 @@ public:
 
     void show(){
         cout<<boolalpha;
-        cout<<id<<endl<<capacity<<endl<<videoprojector<<endl<<occupied<<endl;
+        cout<<id<<endl<<capacity<<endl<<videoprojector<<endl<<DTime.occupied<<endl;
     }
 
     void inputInformation(string help){
@@ -238,6 +240,7 @@ public:
 //class course: etelaat dars
 class course: public commonInformartion{
     friend void babycheck();
+   friend int g(courseLocation room);
     //friend course great(course a , course b);
 
     friend void weekShow();
@@ -383,6 +386,7 @@ public:
     void operator=(courseLocation temp){
         temp.DTime.et = DTime.et;
         temp.DTime.st = DTime.st;
+        
     }
 
 };
@@ -556,10 +560,10 @@ course week[7][4];
 
 void sortDay(course temp[10])
 {
-   /* for(int u =0; u<10 ; u++){
+    for(int u =0; u<10 ; u++){
         temp[u].DTime.calcuteTime();
         
-    }*/
+    }
     /*course saturday[4];
     course sunday[4];
     course monday[4];
@@ -620,11 +624,11 @@ void sortDay(course temp[10])
         //week[6][4]=friday[4];
 
     }
-    for(int y=0; y<7; y++){
+    /*for(int y=0; y<7; y++){
         for(int l=0; l<4; l++){
             week[y][l].DTime.calcuteTime();
         }
-    }
+    }*/
 
 }
 void weekShow(){
@@ -656,11 +660,11 @@ void babycheck()
             for (int k = j+1; k < 4 ; k++)
             {
 
-                if( (week[i][j].location.id == week[i][k].location.id) && (week[i][j].name != week[i][k].name) && (checkTime(week[i][j] , week[j][k])) )
+                if( (week[i][j].location.id == week[i][k].location.id) && (week[i][j].name != week[i][k].name) && (checkTime(week[i][j] , week[i][k])) )
                     cout<<week[i][j].name<<" and "<<week[i][k].name<<" have time overlap on "<<i+1<<"of the week "<<endl;
 
 
-                if( (week[i][j].teachername == week[j][k].teachername) && (week[i][j].name != week[i][k].name) && (checkTime(week[i][j], week[j][k])) )
+                if( (week[i][j].teachername == week[j][k].teachername) && (week[i][j].name != week[i][k].name) && (checkTime(week[i][j], week[i][k])) )
                     cout<<week[i][j].name<<" and "<<week[i][k].name<<" have time teacher interfrence on "<<i+1<<"of the week "<<endl;
 
 
@@ -766,39 +770,54 @@ bool chekingTime(course temp , courseLocation help)
         return 1;
     else
         return 0;
+
+        
 }
+
+
+int p;
+int g(courseLocation room){
+    int t = 10;
+    for(int k=0; k<4; k++){
+       if(week[p][k].location.id == room.id){
+        t=k;
+       }
+
+    }
+    return t;
+}
+
 
 void automaticLocationDetermination(courseLocation rooms[3])
 {
-    for (int i = 0; i <7 ; i++) //day
+    for ( p = 0; p <7 ; p++) //day
     {
         for (int j = 0; j <4 ; j++) //class
         {
+            int a;
             for (int z = 0; z < 3; z++) //location
             {
-                if((week[i][j].capacity < rooms[z].capacity)&&(week[i][j].videoprojector == rooms[z].videoprojector) )
+                
+                if((week[p][j].capacity < rooms[z].capacity)&&(week[p][j].videoprojector == rooms[z].videoprojector) )
                 {
-                    if((rooms[z].occupied = 0) && (chekingTime(week[i][j] , rooms[z])) )
-                    {
-                        rooms[z].occupied = 1;
-                        rooms[z].DTime = week[i][j].DTime;
-                        week[i][j].location.id = rooms[z].id;
-                    }
+                    a = z;
                 }
-                if( rooms[0].occupied == 0 && rooms[1].occupied == 0 && rooms[2].occupied == 0)
-                    cout<<"We could not assign a location to the  "<<week[i][j].name <<" course "<<endl;
-            }
-
-            for(int h =0; h<3; h++)
-            {
-                rooms[h].occupied = 0;
-                rooms[h].DTime.st = 0;
-                rooms[h].DTime.et = 0;
-            }
-
-        }
+                }
+                int y = g(rooms[a]);
+                if(y=10){
+                    week[p][j].location= rooms[a];
+                }
+                else{
+                   if(checkTime(week[p][j] , week[p][y])){
+                    week[p][j].location = rooms[a];
+                   }
+                   else{
+                     cout<<"We could not assign a location to the  "<<week[p][j].name <<" course "<<endl;
+                   }
+                }
 
     }
+}
     babycheck();
 }
 
@@ -908,6 +927,10 @@ cout<<checkTime(courses[1],courses[7])<<endl;
 //weekshow();
 weekShow();*/
     cout<<"------------------------------------------------------------------------\ntesting for show :\n";
+
+    //sortDay(courses);
+    cout<<checkTime(courses[1] , courses[9]);
+    cout<<courses[1].DTime.st<<endl<<courses[9].DTime.st<<endl;
     course AdvanceProgramming;
     courseLocation a101;
     //inputCourse(AdvanceProgramming , "MH101");
