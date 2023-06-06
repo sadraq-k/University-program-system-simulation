@@ -1,7 +1,7 @@
 
 
 AP101
-Advance Programming
+AdvanceProgramming
 lotfi
 True
 False
@@ -90,13 +90,14 @@ False
 00
 30
 sunday monday
-1 2 3 4 5 6 7 8 9 10 11 12 13 14 15
 
 
 DSH101
 DataStructure
+Sabzevari
 True
 False
+30
 10
 00
 2
@@ -106,8 +107,10 @@ wednesday saturday
 
 LCH101
 LogicalCircuit
+Taki
 True
 False
+46
 15
 25
 2
@@ -117,8 +120,10 @@ sunday monday
 
 DMH101
 DiscreteMath
+Hosseini
 True
 False
+55
 16
 30
 1
