@@ -55,7 +55,7 @@ private:
     string day2;
 public:
     double st,et;
-    bool occupied = 0;
+    //bool occupied = 0;
     /*date(int d = 1 , int m = 1 , int y = 1401 ,int hS = 0 , int mS = 0 , int duH = 0 , int duM = 0 ){
         day = d;
         month = m;
@@ -158,7 +158,7 @@ protected:
 
 public:
     virtual void inputInformation(string help) = 0;
-    date DTime;
+    
 };
 
 
@@ -169,7 +169,7 @@ class courseLocation : public commonInformartion{
     friend void automaticLocationDetermination(courseLocation rooms[3]);
     // friend void check();
     // friend void inputClassroom(classroom& temp ,string help);
-private:
+//private:
 
     //bool occupied = 0;
     /*string idClass;
@@ -184,7 +184,7 @@ public:
 
     void show(){
         cout<<boolalpha;
-        cout<<id<<endl<<capacity<<endl<<videoprojector<<endl<<DTime.occupied<<endl;
+        cout<<id<<endl<<capacity<<endl<<videoprojector<<endl;
     }
 
     void inputInformation(string help){
@@ -241,9 +241,7 @@ public:
 //class course: etelaat dars
 class course: public commonInformartion{
     friend void babycheck();
-   friend int g(courseLocation room);
-    //friend course great(course a , course b);
-
+   friend int checkRoom(courseLocation room);
     friend void weekShow();
     friend void sortDay(course temp[10]);
     friend void mothercheck(course temp[10]);
@@ -263,6 +261,7 @@ private:
     //int* studentList{new int[capacity]};
 
 public:
+    date DTime;
     courseLocation location;
     //date DTime;
     void show(){
@@ -383,11 +382,11 @@ public:
 
     }
 
-    void operator=(courseLocation temp){
+    /*void operator=(courseLocation temp){
         temp.DTime.et = DTime.et;
         temp.DTime.st = DTime.st;
         
-    }
+    }*/
 
 };
 
@@ -772,7 +771,7 @@ auto minimum(course temp , courseLocation help){
 }*/
 
 
-
+/*
 bool chekingTime(course temp , courseLocation help)
 {
     if( ((help.DTime.st<temp.DTime.st<help.DTime.et)||(help.DTime.st<temp.DTime.et<help.DTime.et))
@@ -783,7 +782,7 @@ bool chekingTime(course temp , courseLocation help)
         return 0;
 
         
-}
+}*/
 
 
 int p = 0;
