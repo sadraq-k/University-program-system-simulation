@@ -674,6 +674,15 @@ void babycheck()
                     cout<<"The id of "<<week[i][j].name<<" is the same as "<<week[i][k].name<<endl;
 
                 }*/
+                 for(int z{0} ; z<(week[i][j].capacity); z++){
+
+                    for(int q{0};q<(week[i][k].capacity);q++){
+
+                        if((week[i][j].studentList[z] == week[i][k].studentList[q]) && (week[i][j].name != week[j][k].name) && (checkTime(week[i][j] , week[j][k])))
+                            cout<<"student number"<<week[i][j].studentList[z]<<"is present in both "<<week[i][j].name<<" and "<<week[i][k].name<<" courses and there is a time overlap"<<endl;
+
+                    }
+                }
 
             }
         }
