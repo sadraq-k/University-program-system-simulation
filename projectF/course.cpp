@@ -151,6 +151,7 @@ class commonInformartion{
     friend void specify(course temp[10]);
     friend void babycheck();
     friend  void automaticLocationDetermination(courseLocation rooms[3]);
+    friend void weekShow();
 protected:
     string id=" ";
     int capacity = 45;
@@ -559,7 +560,8 @@ course week[7][4];
 
 void sortDay(course temp[10])
 {
-    cout<<temp[7].name<<endl<<temp[7].DTime.day2<<endl;
+    //cout<<"aaaa"<<endl;
+    //cout<<temp[7].name<<endl<<temp[7].DTime.day2<<endl;
     for(int u =0; u<10 ; u++){
         temp[u].DTime.calcuteTime();
         
@@ -578,7 +580,7 @@ void sortDay(course temp[10])
             //  for(int j=0; j<4; j++)
             week[0][j] = temp[i];
             j++;
-            cout<<temp[i].name<<endl;
+            //cout<<temp[i].name<<endl;
         }
         //week[0][4]=saturday[4];
         if(temp[i].DTime.day1 == "sunday" || temp[i].DTime.day2 == "sunday")
@@ -634,13 +636,24 @@ void sortDay(course temp[10])
 }
 void weekShow(){
     cout<<boolalpha;
-    for(int i{0};i<7;i++ ){
+    for(int i{0};i<5;i++ ){
         for(int j{0} ; j<4; j++){
             //week[i][j].DTime.calcuteTime();
-            cout<<endl<<week[i][j].name<<endl<<week[i][j].teachername<<'\t'<<week[i][j].videoprojector<<'\t'<<week[i][j].temprary<<'\t'<<week[i][j].capacity<<'\t'<<week[i][j].DTime.st<<','<<week[i][j].DTime.et<<'\t'<<week[i][j].DTime.ret_day1()<<','<<week[i][j].DTime.ret_day2()<<endl;
+            cout<<endl<<week[i][j].name<<endl<<week[i][j].teachername<<'\t'<<week[i][j].videoprojector<<'\t'<<week[i][j].temprary<<'\t'<<week[i][j].capacity<<'\t'<<week[i][j].DTime.st<<','<<week[i][j].DTime.et<<'\t'<<week[i][j].DTime.ret_day1()<<','<<week[i][j].DTime.ret_day2()<<endl<<week[i][j].location.id<<endl;
         }
         cout<<"------------------------------------------------------------------------------------------------"<<endl<<endl;
     }
+    /*bool a;
+    cout<<"If there is a class on Thursday and Friday and you want the information of those classes to be displayed, enter the number 1."<<endl;
+    cin>>a;
+    if(a){
+        for(int i{5}; i<7; i++){
+            for(int j{0}; j<4; j++){
+                cout<<endl<<week[i][j].name<<endl<<week[i][j].teachername<<'\t'<<week[i][j].videoprojector<<'\t'<<week[i][j].temprary<<'\t'<<week[i][j].capacity<<'\t'<<week[i][j].DTime.st<<','<<week[i][j].DTime.et<<'\t'<<week[i][j].DTime.ret_day1()<<','<<week[i][j].DTime.ret_day2()<<endl<<week[i][j].location.id<<endl;
+            }
+            cout<<"------------------------------------------------------------------------------------------------"<<endl<<endl;
+        }
+    }*/
 }
 
 
@@ -673,15 +686,16 @@ void babycheck()
                     cout<<"The id of "<<week[i][j].name<<" is the same as "<<week[i][k].name<<endl;
 
                 }*/
-                 for(int z{0} ; z<(week[i][j].capacity); z++){
+                /*for(int z{0} ; z<(week[i][j].capacity); z++){
 
                     for(int q{0};q<(week[i][k].capacity);q++){
 
-                        if((week[i][j].studentList[z] == week[i][k].studentList[q]) && (week[i][j].name != week[j][k].name) && (checkTime(week[i][j] , week[j][k])))
+                        if((week[i][j].studentList[z] == week[i][k].studentList[q]) && (week[i][j].name != week[i][k].name) && (checkTime(week[i][j] , week[i][k])))
                             cout<<"student number"<<week[i][j].studentList[z]<<"is present in both "<<week[i][j].name<<" and "<<week[i][k].name<<" courses and there is a time overlap"<<endl;
 
                     }
-                }
+                }*/
+                
 
             }
         }
@@ -800,7 +814,7 @@ int checkRoom(courseLocation room){
 
 
 void automaticLocationDetermination(courseLocation rooms[3])
-{   int selectedRoom;
+{   int selectedRoom = 11;
 //cout<<week[0][0].id<<endl;
     for ( p = 0; p <7 ; p++) //day
     {
@@ -816,6 +830,8 @@ void automaticLocationDetermination(courseLocation rooms[3])
                      //break;
                 }
             }
+            //int index;
+        if( 0<= selectedRoom < 3){
 
             int index = checkRoom(rooms[selectedRoom]);
 
@@ -831,9 +847,13 @@ void automaticLocationDetermination(courseLocation rooms[3])
                 }
 
                 else{
-                     cout<<"program could not assign a location to the  "<<week[p][j].name <<" course "<<"Because the program considers the place of "<<week[p][j].name <<" course in class"<<rooms[selectedRoom].id<<", which has a time conflict with the "<<week[p][index].name<<" course that is held in class "<<rooms[selectedRoom].id<<"."<<endl;
+                     cout<<"program could not assign a location to the  "<<week[p][j].name <<" course "<<"Because the program considers the place of "<<week[p][j].name <<" course in class"<<rooms[selectedRoom].id<<", which has a time conflict with the "<<week[p][index].name<<" course that is held in class "<<rooms[selectedRoom].id<<".(on "<<week[p][j].DTime.ret_day1()<<" or "<<week[p][j].DTime.ret_day2()<<")"<<endl;
                 }
             }
+        }
+        else
+            cout<<"program could not assign a location to the  "<<week[p][j].name <<" course "<<endl;
+
 
         }
     }
@@ -926,6 +946,7 @@ int main()
     else{
         sortDay(courses);
         automaticLocationDetermination(locations);
+        cout<<"-------------"<<endl;
         babycheck();
     }
 
