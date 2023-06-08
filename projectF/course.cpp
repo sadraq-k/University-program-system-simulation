@@ -152,6 +152,7 @@ class commonInformartion{
     friend void babycheck();
     friend  void automaticLocationDetermination(courseLocation rooms[3]);
     friend void weekShow();
+    friend void studentcheck();
 protected:
     string id=" ";
     int capacity = 45;
@@ -248,6 +249,8 @@ class course: public commonInformartion{
     friend void mothercheck(course temp[10]);
     friend bool checkTime(course , course);
     friend void automaticLocationDetermination(courseLocation rooms[3]);
+    friend void studentcheck();
+
 
     //friend void inputCourse(course&temp , string help);
 private:
@@ -664,6 +667,28 @@ void weekShow(){
 course stackForTeacher[4];
 course stackForIdCourse[4];
 course stackForStudent[40];*/
+void studentcheck(){
+
+    for(int i=0; i<7; i++){
+        for(int j=0; j<4;j++){
+            for(int k=j+1; k<4;k++){
+                for(int z=0;z<week[i][j].studentList.size();z++){
+                    for(int q=0;q<week[i][k].studentList.size();q++){
+                        cout<<"i "<<i<<" j "<<j<<" k "<<k<<" z "<<z<<" q "<<q<<endl;
+                        if( (week[i][j].studentList.at(z)==week[i][k].studentList.at(q)) && checkTime(week[i][j],week[i][k]) ){
+                            cout<<"student number"<<week[i][j].studentList[z]<<"is present in both "<<week[i][j].name<<" and "<<week[i][k].name<<" courses and there is a time overlap"<<endl;
+                            
+                        }
+                    }
+                }
+                
+            }
+        }
+    }
+}
+
+
+
 void babycheck()
 {
     //int j{0};
@@ -686,12 +711,14 @@ void babycheck()
                     cout<<"The id of "<<week[i][j].name<<" is the same as "<<week[i][k].name<<endl;
 
                 }*/
-                /*for(int z{0} ; z<(week[i][j].capacity); z++){
+              /*  for(int z=0 ; z<(week[i][j].capacity); z++){
 
-                    for(int q{0};q<(week[i][k].capacity);q++){
-
-                        if((week[i][j].studentList[z] == week[i][k].studentList[q]) && (week[i][j].name != week[i][k].name) && (checkTime(week[i][j] , week[i][k])))
+                    for(int q=0;q<(week[i][k].capacity);q++){
+                        cout<<"i "<<i<<" j "<<j<<" k "<<k<<" z "<<z<<" q "<<q<<endl;
+                        if((week[i][j].studentList[z] == week[i][k].studentList[q]) && (week[i][j].name != week[i][k].name) && (checkTime(week[i][j] , week[i][k]))){
                             cout<<"student number"<<week[i][j].studentList[z]<<"is present in both "<<week[i][j].name<<" and "<<week[i][k].name<<" courses and there is a time overlap"<<endl;
+                           // cout<<"i "<<i<<" j "<<j<<" z "<<z<<" q "<<q<<endl;
+                            }
 
                     }
                 }*/
@@ -700,8 +727,11 @@ void babycheck()
             }
         }
     }
+    studentcheck();
 
 }
+
+
 
 void mothercheck(course temp[10])
 {
