@@ -1,3 +1,6 @@
+
+// prodiuced by sadra kasaei and mohammad foad golabi.
+
 #include<iostream>
 #include<fstream>
 #include<string>

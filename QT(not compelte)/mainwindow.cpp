@@ -1,3 +1,6 @@
+
+// prodiuced by sadra kasaei and mohammad foad golabi.
+
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 

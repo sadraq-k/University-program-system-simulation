@@ -1,3 +1,6 @@
+
+// prodiuced by sadra kasaei and mohammad foad golabi.
+
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QWidget>
 #include <QtWidgets/QLabel>

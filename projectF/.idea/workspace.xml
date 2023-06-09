@@ -9,7 +9,10 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3e172870-ed0d-45e5-b881-8b0446ac53d7" name="Changes" comment="" />
+    <list default="true" id="3e172870-ed0d-45e5-b881-8b0446ac53d7" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/course.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/course.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../توضیحات پروژه بوستان.pdf" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -91,6 +94,7 @@
       <workItem from="1686141485988" duration="187000" />
       <workItem from="1686141676012" duration="1027000" />
       <workItem from="1686318266367" duration="66000" />
+      <workItem from="1686332464211" duration="91000" />
     </task>
     <servers />
   </component>
