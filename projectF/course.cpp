@@ -697,7 +697,8 @@ int main()
     cout<<"you want to determine the location of each course yourself (enter 1)| the program specifies the location of each course (enter 0) "<<endl;
     cin>>check;
     if(check){
-        cout<<"AdvanceProgramming , Math , Physics , Workshop , Differntial , Statistics , History , DataStructure , LogicalCircut , DiscreteMath "<<endl;
+        cout<<"Courses : AdvanceProgramming , Math , Physics , Workshop , Differntial , Statistics , History , DataStructure , LogicalCircut , DiscreteMath "<<endl;
+        cout<<"Locations : 401 , 402 , 501"<<endl;
         specify(courses);
         sortDay(courses);
         cout<<"________________________________________________________________________________________________________________"<<endl;
