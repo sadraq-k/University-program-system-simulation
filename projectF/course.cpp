@@ -8,20 +8,17 @@
 #include<sstream>
 using namespace std;
 
+
+//forward declaration
 class course;
 class courseLocation;
 class date;
 
-
-void mothercheck(course );
-
+void mothercheck(course);
 
 
 
-
-
-
-
+//Auxiliary function to convert string to Boolean
 bool stringToBool(string temp){
     bool check{true};
     if(temp == "true" || temp == "True" || temp == "TRUE")
@@ -48,9 +45,13 @@ private:
     int minEnd=0;
     int durationMin=0;
     int durationHour=0;
+
+//Variables for storing course days
     string day1;
     string day2;
 public:
+
+//Variables to store start and end time
     double st,et;
 
     void set_HS(int a = 0)
@@ -80,10 +81,9 @@ public:
         return day2;
     }
 
+//Calculation of the end time of the course according to the start time and its duration
     void calcuteTime()
     {
-
-
         minEnd = minStart + durationMin;
         if(minEnd > 59)
         {
@@ -116,11 +116,13 @@ class commonInformartion{
     friend void WriteInTheFile();
 
 protected:
+    //Common information between two classes, course and courselocation
     string id=" ";
     int capacity = 45;
     bool videoprojector;
 
 public:
+    //pure virtual fuction
     virtual void inputInformation(string help) = 0;
     
 };
@@ -134,12 +136,7 @@ class courseLocation : public commonInformartion{
 
 public:
 
-
-    void show(){
-        cout<<boolalpha;
-        cout<<id<<endl<<capacity<<endl<<videoprojector<<endl;
-    }
-
+//Read information from the file
     void inputInformation(string help){
 
         string auxiliary;
@@ -184,7 +181,7 @@ public:
 
 class course: public commonInformartion{
     friend void babycheck();
-   friend int checkRoom(courseLocation room);
+    friend int checkRoom(courseLocation room);
     friend void weekShow();
     friend void sortDay(course temp[10]);
     friend void mothercheck(course temp[10]);
@@ -204,22 +201,15 @@ private:
 
 
 public:
+//An object to store the time of each course
     date DTime;
+//An object to store the location of each course
     courseLocation location;
 
-    void show(){
-        cout<<boolalpha;
-        cout<<"idcourse:"<<id<<endl<<"name:"<<name<<endl<<"teacher name:"<<teachername<<endl<<"videoprojector:"<<videoprojector<<endl<<"temperary:"<<temprary<<endl<<"capacity course:"<<capacity<<endl;
-        cout<<"student list : ";
-
-    }
-
+//Read information from the file
     void inputInformation(string help){
-
-
         string auxiliary;
         string assist;
-
         fstream coursetemp;
         coursetemp.open("proj.txt" , ios::in);
         if(coursetemp.fail()){
@@ -233,16 +223,14 @@ public:
             if(assist == help)
                 break;
         }
-
         coursetemp.close();
+
 
         coursetemp.open("proj.txt" , ios::in);
 
         for(int i{1};!coursetemp.eof();i++){
-
-
             getline(coursetemp,auxiliary);
-
+            
             if(i>=j-1 && i<=j+11){
 
                 if(i == j)
@@ -278,21 +266,19 @@ public:
                     const char* x = auxiliary.c_str();
                     DTime.set_DM(atoi(x));
                 }
-                if(i == j+10){
 
+                if(i == j+10){
                     string d1;
                     string d2;
                     istringstream helping(auxiliary);
                     helping>>d1;
-
                     helping>>d2;
                     DTime.set_Day(d1 , d2);
 
                 }
 
-
+                //Storing students' student numbers in a vector using istringstream
                 if(i == j+11){
-
                     istringstream helping(auxiliary);
                     int x;
                     while(helping>>x)
@@ -311,7 +297,7 @@ public:
     }
 
 };
-
+//Checking the time overlap between two courses
 bool checkTime(course temp , course dayOfWeek){
     if( (( (dayOfWeek.DTime.st<temp.DTime.st) && (temp.DTime.st<dayOfWeek.DTime.et) )||( (dayOfWeek.DTime.st<temp.DTime.et) && (temp.DTime.et<dayOfWeek.DTime.et) ))||(( (temp.DTime.st<dayOfWeek.DTime.st) && (dayOfWeek.DTime.st<temp.DTime.et) )||( (temp.DTime.st<dayOfWeek.DTime.et) && (dayOfWeek.DTime.et<temp.DTime.et) )) ){
         return 1;}
@@ -322,7 +308,7 @@ bool checkTime(course temp , course dayOfWeek){
 
 
 
-
+//Getting the location of each course manually from the user
 void specify(course temp[10] )
 {
 
@@ -335,41 +321,29 @@ void specify(course temp[10] )
             cin>>questionForCourse;
             if(questionForCourse == "AdvanceProgramming")
             {
-
                 cout<<"enter the desired classroom for the Advance Programming course : ";
-
                 cin>>questionForClassroom;
-
                 (temp[0].location).inputInformation(questionForClassroom);
             }
 
             if(questionForCourse == "Math")
             {
-
                 cout<<"enter the desired classroom for the Math course : ";
-
                 cin>>questionForClassroom;
-
                 (temp[1].location).inputInformation(questionForClassroom);
             }
 
             if(questionForCourse == "Physics")
             {
-
                 cout<<"enter the desired classroom for the Phycsics course : ";
-
                 cin>>questionForClassroom;
-
                 (temp[2].location).inputInformation(questionForClassroom);
             }
 
             if(questionForCourse == "Workshop")
             {
-
                 cout<<"enter the desired classroom for the Workshop course : ";
-
                 cin>>questionForClassroom;
-
                 (temp[3].location).inputInformation(questionForClassroom);
             }
 
@@ -419,12 +393,14 @@ void specify(course temp[10] )
 
 
 }
-
+//Array for storing courses based on days of the week
 course week[7][4];
 
+//Sort courses by days of the week
 void sortDay(course temp[10])
 {
 
+//Calculate the end time of each courses
     for(int u =0; u<10 ; u++){
         temp[u].DTime.calcuteTime();
         
@@ -486,6 +462,8 @@ void sortDay(course temp[10])
     }
 
 }
+
+//showing the weekly courses plan
 void weekShow(){
     cout<<boolalpha;
     for(int i{0};i<5;i++ ){
@@ -498,6 +476,7 @@ void weekShow(){
 
 }
 
+//Writing the weekly courses plan in the file
 void WriteInTheFile(){
     fstream writing;
     writing.open("plan.txt" , ios::out);
@@ -510,6 +489,8 @@ void WriteInTheFile(){
     }
 }
 
+
+//Checking student interference
 void studentcheck(){
 
     for(int i=0; i<7; i++){
@@ -532,6 +513,7 @@ void studentcheck(){
 
 
 
+//Checking time overlap and teacher interference and student interference
 void babycheck()
 {
 
@@ -552,6 +534,7 @@ void babycheck()
             }
         }
     }
+//Checking student interference
     studentcheck();
 
 }
@@ -586,11 +569,18 @@ void mothercheck(course temp[10])
         
     }
     cout<<"---------------"<<endl;
+
+
+//Checking time overlap and teacher interference and student interference
     babycheck();
 }
 
 
+//Common variable between the checkRoom and automaticLocationDetermination functions to transfer between days
 int p = 0;
+
+
+//Finding the index of course whose assigned location is the same as the location in the function input
 int checkRoom(courseLocation room){
     int t = 10;
     for(int k=0; k<4; k++){
@@ -603,7 +593,7 @@ int checkRoom(courseLocation room){
     return t;
 }
 
-
+//Automatic arrangement of the location of each course
 void automaticLocationDetermination(courseLocation rooms[3])
 {   int selectedRoom = 11;
 
@@ -614,7 +604,7 @@ void automaticLocationDetermination(courseLocation rooms[3])
             
             for (int z = 0; z < 3; z++) //location
             {
-                
+                //Initial check of capacity and video projector and finding a index of place for each course
                 if((week[p][j].capacity < rooms[z].capacity)&&(week[p][j].videoprojector == rooms[z].videoprojector) ){
                     selectedRoom = z;
                                        
@@ -660,6 +650,7 @@ int main()
 {
    cout<<"run program :"<<endl;
 
+//Definition of 10 courses
     course advanceprogramming;
     course math;
     course physics;
@@ -670,7 +661,11 @@ int main()
     course datastructure;
     course logicalcircuit;
     course  discretemath;
-    course courses[10] = {advanceprogramming , math , physics , workshop , differntial , statistics , history , datastructure , logicalcircuit , discretemath};
+
+//Storing objects(courses) in an array
+   
+ course courses[10] = {advanceprogramming , math , physics , workshop , differntial , statistics , history , datastructure , logicalcircuit , discretemath};
+//Read information from the file
     courses[0].inputInformation("AP101");
     courses[1].inputInformation("MH101");
     courses[2].inputInformation("PH101");
@@ -683,14 +678,21 @@ int main()
     courses[9].inputInformation("DMH101");
 
 
+//Definition of 3 locations(classrooms)
     courseLocation a;
     courseLocation b;
     courseLocation c;
+
+//Storing objects(locations) in an array
     courseLocation locations[3] = {a,b,c};
+    
+//Read information from the file
     locations[0].inputInformation("401");
     locations[1].inputInformation("402");
     locations[2].inputInformation("501");
 
+
+//Choice of automatic or manual sorting of locations
     bool check;
     cout<<"you want to determine the location of each course yourself (enter 1)| the program specifies the location of each course (enter 0) "<<endl;
     cin>>check;
@@ -705,7 +707,7 @@ int main()
     else{
         sortDay(courses);
         automaticLocationDetermination(locations);
-        cout<<"-------------"<<endl;
+        cout<<"-7------------"<<endl;
         babycheck();
         WriteInTheFile();
     }
@@ -715,11 +717,10 @@ int main()
 
 cout<<"------------------------------------------------"<<endl;
 
-  
+//General display of the program in the terminal environment
     weekShow();
 
 
-cout<<"------------------------------------------------------------------------\ntesting for show :\n";
 
     
 
