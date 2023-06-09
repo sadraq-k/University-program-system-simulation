@@ -1,15 +1,15 @@
 
 course name : AdvanceProgramming
 teacher name : lotfi	 video projector : 1	temprary : 0	course capacity : 40	 start and end time : 16,17.3	 course days : saturday,sunday
-course location : 402
+course location : 401
 
 course name : Workshop
 teacher name : Bahonar	 video projector : 1	temprary : 1	course capacity : 40	 start and end time : 17,17.45	 course days : tuesday,saturday
-course location :  
+course location : 401
 
 course name : Statistics
 teacher name : Amiri	 video projector : 0	temprary : 0	course capacity : 20	 start and end time : 8.3,10	 course days : saturday,tuesday
-course location : 401
+course location : 501
 
 course name : DataStructure
 teacher name : Sabzevari	 video projector : 1	temprary : 0	course capacity : 30	 start and end time : 10,12	 course days : wednesday,saturday
@@ -19,65 +19,65 @@ course location : 402
 
 course name : AdvanceProgramming
 teacher name : lotfi	 video projector : 1	temprary : 0	course capacity : 40	 start and end time : 16,17.3	 course days : saturday,sunday
-course location : 402
+course location : 401
 
 course name : Math 
 teacher name : Sabzevari	 video projector : 0	temprary : 0	course capacity : 25	 start and end time : 10.3,11.3	 course days : sunday,wednesday
-course location : 401
+course location : 402
 
 course name : History
 teacher name : Sadraie	 video projector : 0	temprary : 0	course capacity : 15	 start and end time : 14.45,15.15	 course days : sunday,monday
-course location : 501
+course location : 401
 
 course name : LogicalCircuit
 teacher name : Taki	 video projector : 1	temprary : 0	course capacity : 10	 start and end time : 15.25,17.35	 course days : sunday,monday
-course location :  
+course location : 501
 ------------------------------------------------------------------------------------------------
 
 
 course name : Physics
 teacher name : Bahrami	 video projector : 1	temprary : 0	course capacity : 30	 start and end time : 13.45,15.15	 course days : monday,tuesday
-course location : 402
+course location : 501
 
 course name : Differntial
 teacher name : Nasibi	 video projector : 0	temprary : 0	course capacity : 45	 start and end time : 13.3,15.15	 course days : monday,wednesday
-course location :  
+course location : 402
 
 course name : History
 teacher name : Sadraie	 video projector : 0	temprary : 0	course capacity : 15	 start and end time : 14.45,15.15	 course days : sunday,monday
-course location : 501
+course location : 401
 
 course name : LogicalCircuit
 teacher name : Taki	 video projector : 1	temprary : 0	course capacity : 10	 start and end time : 15.25,17.35	 course days : sunday,monday
-course location : 402
+course location : 501
 ------------------------------------------------------------------------------------------------
 
 
 course name : Physics
 teacher name : Bahrami	 video projector : 1	temprary : 0	course capacity : 30	 start and end time : 13.45,15.15	 course days : monday,tuesday
-course location : 402
+course location : 501
 
 course name : Workshop
 teacher name : Bahonar	 video projector : 1	temprary : 1	course capacity : 40	 start and end time : 17,17.45	 course days : tuesday,saturday
-course location : 402
+course location : 401
 
 course name : Statistics
 teacher name : Amiri	 video projector : 0	temprary : 0	course capacity : 20	 start and end time : 8.3,10	 course days : saturday,tuesday
-course location : 401
+course location : 501
 
 course name : DiscreteMath
 teacher name : Hosseini	 video projector : 1	temprary : 0	course capacity : 35	 start and end time : 16.3,18.15	 course days : wednesday,tuesday
-course location : 402
+course location : 401
 ------------------------------------------------------------------------------------------------
 
 
 course name : Math 
 teacher name : Sabzevari	 video projector : 0	temprary : 0	course capacity : 25	 start and end time : 10.3,11.3	 course days : sunday,wednesday
-course location : 401
+course location : 402
 
 course name : Differntial
 teacher name : Nasibi	 video projector : 0	temprary : 0	course capacity : 45	 start and end time : 13.3,15.15	 course days : monday,wednesday
-course location : 401
+course location : 402
 
 course name : DataStructure
 teacher name : Sabzevari	 video projector : 1	temprary : 0	course capacity : 30	 start and end time : 10,12	 course days : wednesday,saturday
@@ -85,6 +85,6 @@ course location : 402
 
 course name : DiscreteMath
 teacher name : Hosseini	 video projector : 1	temprary : 0	course capacity : 35	 start and end time : 16.3,18.15	 course days : wednesday,tuesday
-course location : 402
+course location : 401
 ------------------------------------------------------------------------------------------------
 

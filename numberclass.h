@@ -1,8 +1,0 @@
-//
-// Created by User on 28/04/2023.
-//
-
-#ifndef LOTFI_PROJECT_NUMBERCLASS_H
-#define LOTFI_PROJECT_NUMBERCLASS_H
-
-#endif //LOTFI_PROJECT_NUMBERCLASS_H
