@@ -528,7 +528,7 @@ void babycheck()
                     cout<<week[i][j].name<<" and "<<week[i][k].name<<" have time overlap on "<<i+1<<"of the week "<<endl;
 
 
-                if( (week[i][j].teachername == week[j][k].teachername) && (week[i][j].name != week[i][k].name) && (checkTime(week[i][j], week[i][k])) )
+                if( (week[i][j].teachername == week[i][k].teachername) && (week[i][j].name != week[i][k].name) && (checkTime(week[i][j], week[i][k])) )
                     cout<<week[i][j].name<<" and "<<week[i][k].name<<" have time teacher interfrence on "<<i+1<<"of the week "<<endl;
 
             }

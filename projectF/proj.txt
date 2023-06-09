@@ -106,7 +106,7 @@ wednesday saturday
 
 LCH101
 LogicalCircuit
-Taki
+lotfi
 True
 False
 10
